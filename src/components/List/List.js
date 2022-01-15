@@ -1,8 +1,8 @@
 import React from "react";
-import TodoItem from "./../TodoItem_class/TodoItem";
-import lst from "./style.module.css";
+import Item from "../Item/Item";
+import lst from "./list.module.css";
 
-class TodoList extends React.Component {
+class List extends React.Component {
   removeItem(id) {
     this.props.handleRemoveTodo(id);
   }
@@ -11,8 +11,8 @@ class TodoList extends React.Component {
     this.props.changeImportance(id, importance);
   }
 
-  changeIsDone(id, isDone) {
-    this.props.changeIsDone(id, isDone);
+  changeIsDone(id) {
+    this.props.changeIsDone(id);
   }
 
   render() {
@@ -21,9 +21,9 @@ class TodoList extends React.Component {
       <ol className={lst.todolist}>
         {this.props.items.map(
           (item) =>
-            (this.props.filterType == 2 ||
-              this.props.filterType == item.isDone) && (
-              <TodoItem
+            (this.props.filterType === 2 ||
+              !!this.props.filterType === item.isDone) && (
+              <Item
                 key={item.id.toString()}
                 id={item.id}
                 text={item.text}
@@ -35,7 +35,7 @@ class TodoList extends React.Component {
                 }}
                 importance={item.importance}
                 isDone={item.isDone}
-                changeIsDone={() => this.changeIsDone(item.id, item.isDone)}
+                changeIsDone={() => this.changeIsDone(item.id)}
               />
             )
         )}
@@ -44,4 +44,4 @@ class TodoList extends React.Component {
   }
 }
 
-export default TodoList;
+export default List;
