@@ -2,9 +2,10 @@ import React from "react";
 import i from "./item.module.css";
 import a from "./../App/app.module.css";
 import classNames from "classnames/bind";
-import { ThemeContextConsumer } from "./../../context/ThemeContext";
+
 
 let cx = classNames.bind(i);
+let cx1 = classNames.bind(i);
 
 class Item extends React.Component {
   render() {
@@ -19,16 +20,19 @@ class Item extends React.Component {
       "": !this.props.isDone,
     });
 
- 
+    let themeClassName = cx({
+      small: this.props.theme === 'small',
+      big: this.props.theme === 'big',
+    });
 
 
     return (
-      <ThemeContextConsumer>
-        {(context) => (
-          <li id={this.props.id} className={`${className} ${context.theme}`}>
+      
+        (
+          <li id={this.props.id} className={`${className} ${themeClassName}`}>
             <label className={i.item}>
               <input
-                className={`${i.input} ${context.theme}`}
+                className={`${i.input} ${themeClassName}`}
                 type="checkbox"
                 checked={this.props.isDone}
                 onChange={this.props.changeIsDone}
@@ -38,7 +42,7 @@ class Item extends React.Component {
 
               <div className={i.info}>
                 <select
-                  className={`${i.importance} ${context.theme}`}
+                  className={`${i.importance} ${themeClassName}`}
                   onChange={this.props.changeImportance}
                   value={this.props.importance}
                 >
@@ -52,11 +56,11 @@ class Item extends React.Component {
               </div>
             </label>
           </li>
-        )}
-      </ThemeContextConsumer>
+        )
+      
     );
   }
 }
-Item.contextType = ThemeContextConsumer;
+
 
 export default Item;
