@@ -19,6 +19,8 @@ class List extends React.Component {
     // alert(this.props.filterType);
     return (
       <ol className={lst.todolist}>
+     
+        
         {this.props.items.map(
           (item) =>
             (this.props.filterType === 2 ||
@@ -39,6 +41,7 @@ class List extends React.Component {
               />
             )
         )}
+ 
       </ol>
     );
   }

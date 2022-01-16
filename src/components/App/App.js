@@ -1,6 +1,7 @@
 import React from "react";
 import app from "./app.module.css";
 import List from "../List/List";
+import ThemedButton from "./../ThemedButton/ThemedButton";
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class App extends React.Component {
       items: [],
       text: "",
       isDone: false,
-      importance: 0,
+      importance: "0",
       filterType: 2,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +31,12 @@ class App extends React.Component {
       return;
     }
 
-    if (this.state.items.some((element) => element.text.toLowerCase() === this.state.text.toLowerCase())) {
+    if (
+      this.state.items.some(
+        (element) =>
+          element.text.toLowerCase() === this.state.text.toLowerCase()
+      )
+    ) {
       return alert("такой пункт уже есть");
     }
 
@@ -98,6 +104,7 @@ class App extends React.Component {
             <option value="1">выполненные задачи</option>
             <option value="0">текущие задачи</option>
           </select>
+          <ThemedButton />
         </div>
 
         <form className={app.form} onSubmit={this.handleSubmit}>
