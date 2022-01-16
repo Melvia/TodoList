@@ -2,6 +2,9 @@ import React from "react";
 import app from "./app.module.css";
 import List from "../List/List";
 import ThemedButton from "./../ThemedButton/ThemedButton";
+import Loader from "../Loader/Loader";
+import withLoader from "../../HOC/LoadWrapper/WithLoader";
+
 
 class App extends React.Component {
   constructor(props) {
@@ -89,7 +92,19 @@ class App extends React.Component {
     });
   }
 
+  
+
   render() {
+    const ListWithLoader = withLoader(
+    <List
+      items={this.state.items}
+      handleRemoveTodo={this.handleRemoveTodo}
+      changeImportance={this.handleChangeImportance}
+      filterType={this.state.filterType}
+      changeIsDone={this.hanldeChangeIsDone}
+      
+    />, true);
+
     return (
       <div className={app.container}>
         <div className={app["todo-header"]}>
@@ -120,14 +135,9 @@ class App extends React.Component {
 
           <button className={app.button}>+</button>
         </form>
+      
+       <ListWithLoader />
 
-        <List
-          items={this.state.items}
-          handleRemoveTodo={this.handleRemoveTodo}
-          changeImportance={this.handleChangeImportance}
-          filterType={this.state.filterType}
-          changeIsDone={this.hanldeChangeIsDone}
-        />
       </div>
     );
   }

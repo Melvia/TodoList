@@ -5,9 +5,11 @@ import { ThemeContextProvider } from "./context/ThemeContext";
 
 import App from "./components/App/App";
 
-ReactDOM.render(
+
+ReactDOM.render(    
+    
   <ThemeContextProvider>
-    <App />
+    <App />    
   </ThemeContextProvider>,
   document.getElementById("root")
 );
