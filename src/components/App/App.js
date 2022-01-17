@@ -5,7 +5,6 @@ import ThemedButton from "./../ThemedButton/ThemedButton";
 import Loader from "../Loader/Loader";
 import withLoader from "../../HOC/LoadWrapper/WithLoader";
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +14,7 @@ class App extends React.Component {
       isDone: false,
       importance: "0",
       filterType: 2,
+      loading: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -92,18 +92,15 @@ class App extends React.Component {
     });
   }
 
-  
+  componentDidMount() {
+    setTimeout(() => {
+      console.log("you can see me after 2 seconds");
+      this.setState({ loading: true });
+    }, 5000);
+  }
 
   render() {
-    const ListWithLoader = withLoader(
-    <List
-      items={this.state.items}
-      handleRemoveTodo={this.handleRemoveTodo}
-      changeImportance={this.handleChangeImportance}
-      filterType={this.state.filterType}
-      changeIsDone={this.hanldeChangeIsDone}
-      
-    />, true);
+    const ListWithLoader = withLoader(List, this.state.loading);
 
     return (
       <div className={app.container}>
@@ -135,9 +132,14 @@ class App extends React.Component {
 
           <button className={app.button}>+</button>
         </form>
-      
-       <ListWithLoader />
 
+        <ListWithLoader
+          items={this.state.items}
+          handleRemoveTodo={this.handleRemoveTodo}
+          changeImportance={this.handleChangeImportance}
+          filterType={this.state.filterType}
+          changeIsDone={this.hanldeChangeIsDone}
+        />
       </div>
     );
   }

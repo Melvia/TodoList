@@ -1,24 +1,15 @@
 import React from "react";
 import Loader from "./../../components/Loader/Loader";
 
-const withLoader = (Component, loading) => {
-  console.log(Component);
-  return class WithLoader extends React.Component {
-    
-    constructor(props) {
-    super(props);
-    this.state = {
-       isLoading: loading
-    };
-  };
-  
 
 
+const withLoader = (WrappedComponent, loading) => {
+  class HOC extends React.Component {
     render() {
-      console.log({...this.props}); 
-      return loading ? <Component {...this.props} /> : <Loader />;
+      return loading ? <WrappedComponent {...this.props}  /> : <Loader />;
     }
-  };
+  }    
+  return HOC;
 };
 
 export default withLoader;
