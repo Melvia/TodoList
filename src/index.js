@@ -7,7 +7,6 @@ import App from "./components/App/App";
 
 
 ReactDOM.render(    
-    
   <ThemeContextProvider>
     <App />    
   </ThemeContextProvider>,

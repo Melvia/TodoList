@@ -1,9 +1,9 @@
 import React from "react";
 import app from "./app.module.css";
 import List from "../List/List";
-import ThemedButton from "./../ThemedButton/ThemedButton";
 import Loader from "../Loader/Loader";
 import withLoader from "../../HOC/LoadWrapper/WithLoader";
+import Header from "../Header/Header";
 
 class App extends React.Component {
   constructor(props) {
@@ -94,53 +94,35 @@ class App extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      console.log("you can see me after 2 seconds");
       this.setState({ loading: true });
     }, 5000);
   }
 
   render() {
-    const ListWithLoader = withLoader(List, this.state.loading);
+    
+
+    const HeaderWithLoader = withLoader(Header, this.state.loading);
 
     return (
+      <>
       <div className={app.container}>
-        <div className={app["todo-header"]}>
-          <h1>Список дел</h1>
-
-          <select
-            className={app.select}
-            defaultValue={this.state.filterType}
-            onChange={this.handleFilter}
-          >
-            <option value="2">все задачи</option>
-            <option value="1">выполненные задачи</option>
-            <option value="0">текущие задачи</option>
-          </select>
-          <ThemedButton />
-        </div>
-
-        <form className={app.form} onSubmit={this.handleSubmit}>
-          <input
-            className={app.input}
-            type="text"
-            aria-label="Описание задачи"
-            placeholder="Например, прочитать про redux"
-            id="new-todo"
-            onChange={this.handleChange}
-            value={this.state.text}
-          />
-
-          <button className={app.button}>+</button>
-        </form>
-
-        <ListWithLoader
-          items={this.state.items}
-          handleRemoveTodo={this.handleRemoveTodo}
-          changeImportance={this.handleChangeImportance}
+        <HeaderWithLoader
           filterType={this.state.filterType}
-          changeIsDone={this.hanldeChangeIsDone}
+          handleFilter={this.handleFilter}
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          text={this.state.text}
         />
-      </div>
+        
+          <List
+            items={this.state.items}
+            handleRemoveTodo={this.handleRemoveTodo}
+            changeImportance={this.handleChangeImportance}
+            filterType={this.state.filterType}
+            changeIsDone={this.hanldeChangeIsDone}
+          />
+        </div>
+      </>
     );
   }
 }
