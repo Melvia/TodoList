@@ -1,9 +1,9 @@
 import React from "react";
 import app from "./app.module.css";
 import List from "../List/List";
-import Loader from "../Loader/Loader";
 import withLoader from "../../HOC/LoadWrapper/WithLoader";
 import Header from "../Header/Header";
+
 
 class App extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class App extends React.Component {
       importance: "0",
       filterType: 2,
       loading: false,
+      timer: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,7 +48,7 @@ class App extends React.Component {
       text: this.state.text,
       id: Date.now(),
       isDone: false,
-      importance: 0,
+      importance: "0",
       filterType: 2,
     };
 
@@ -92,14 +93,18 @@ class App extends React.Component {
     });
   }
 
+  
   componentDidMount() {
-    setTimeout(() => {
+    this.setState({timer: setTimeout(() => {
       this.setState({ loading: true });
-    }, 5000);
+    }, 5000)}) ;
+  }
+
+  componentWillUnmount() {
+    this.setState({timer:clearTimeout(this.state.timer)} ) ;
   }
 
   render() {
-    
 
     const HeaderWithLoader = withLoader(Header, this.state.loading);
 
@@ -127,4 +132,8 @@ class App extends React.Component {
   }
 }
 
+
+
 export default App;
+
+

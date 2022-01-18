@@ -1,6 +1,7 @@
 import React from "react";
 import header from "./header.module.css";
 import app from "./../App/app.module.css";
+import PropTypes from 'prop-types';
 
 import ThemedButton from "./../ThemedButton/ThemedButton";
 
@@ -40,5 +41,13 @@ class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  filterType:PropTypes.number,
+  handleFilter:PropTypes.func,
+  handleSubmit:PropTypes.func,
+  handleChange:PropTypes.func
+};
+
 
 export default Header;

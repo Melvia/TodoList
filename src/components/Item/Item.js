@@ -2,10 +2,10 @@ import React from "react";
 import i from "./item.module.css";
 import a from "./../App/app.module.css";
 import classNames from "classnames/bind";
+import PropTypes from 'prop-types';
 
 
 let cx = classNames.bind(i);
-let cx1 = classNames.bind(i);
 
 class Item extends React.Component {
   render() {
@@ -61,6 +61,19 @@ class Item extends React.Component {
     );
   }
 }
+
+
+Item.propTypes = {
+
+  id:PropTypes.number,
+  text:PropTypes.string,
+  isDone: PropTypes.bool,
+  changeIsDone: PropTypes.func,
+  changeImportance: PropTypes.func,
+  importance: PropTypes.string,
+  removeItem:PropTypes.func
+
+};
 
 
 export default Item;
