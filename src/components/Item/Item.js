@@ -1,79 +1,70 @@
-import React from "react";
+import React, { useContext } from "react";
 import i from "./item.module.css";
 import a from "./../App/app.module.css";
 import classNames from "classnames/bind";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { ThemeContext } from "../../context/ThemeContext";
 
+const Item = (props) => {
+  const [context, setContext] = useContext(ThemeContext);
+  let cx = classNames.bind(i);
+  
+  let className = cx({
+    important: props.importance === "1",
+    most_important: props.importance === "2",
+    base: true,
+  });
 
-let cx = classNames.bind(i);
+  let spanClassName = cx({
+    checked: props.isDone,
+    "": !props.isDone,
+  });
 
-class Item extends React.Component {
-  render() {
-    let className = cx({
-      important: this.props.importance === "1",
-      most_important: this.props.importance === "2",
-      base: true,
-    });
+  let themeClassName = cx({
+    small: context === "small",
+    big: context === "big",
+  });
 
-    let spanClassName = cx({
-      checked: this.props.isDone,
-      "": !this.props.isDone,
-    });
+  
+  return (
+    <li id={props.id} className={`${className} ${themeClassName}`}>
+      <label className={i.item}>
+        <input
+          className={`${i.input} ${themeClassName}`}
+          type="checkbox"
+          checked={props.isDone}
+          onChange={props.changeIsDone}
+        ></input>
 
-    let themeClassName = cx({
-      small: this.props.theme === 'small',
-      big: this.props.theme === 'big',
-    });
+        <span className={spanClassName}>{props.text}</span>
 
-
-    return (
-      
-        (
-          <li id={this.props.id} className={`${className} ${themeClassName}`}>
-            <label className={i.item}>
-              <input
-                className={`${i.input} ${themeClassName}`}
-                type="checkbox"
-                checked={this.props.isDone}
-                onChange={this.props.changeIsDone}
-              ></input>
-
-              <span className={spanClassName}>{this.props.text}</span>
-
-              <div className={i.info}>
-                <select
-                  className={`${i.importance} ${themeClassName}`}
-                  onChange={this.props.changeImportance}
-                  value={this.props.importance}
-                >
-                  <option value="0">обычная</option>
-                  <option value="1">важная</option>
-                  <option value="2">очень важная</option>
-                </select>
-                <button className={a.button} onClick={this.props.removeItem}>
-                  -
-                </button>
-              </div>
-            </label>
-          </li>
-        )
-      
-    );
-  }
-}
-
+        <div className={i.info}>
+          <select
+            className={`${i.importance} ${themeClassName}`}
+            onChange={props.changeImportance}
+            value={props.importance}
+          >
+            <option value="0">обычная</option>
+            <option value="1">важная</option>
+            <option value="2">очень важная</option>
+          </select>
+          <button className={a.button} onClick={props.removeItem}>
+            -
+          </button>
+        </div>
+      </label>
+    </li>
+  );
+};
 
 Item.propTypes = {
-
-  id:PropTypes.number,
-  text:PropTypes.string,
+  id: PropTypes.number,
+  text: PropTypes.string,
   isDone: PropTypes.bool,
   changeIsDone: PropTypes.func,
   changeImportance: PropTypes.func,
   importance: PropTypes.string,
-  removeItem:PropTypes.func
-
+  removeItem: PropTypes.func,
 };
-
 
 export default Item;

@@ -1,139 +1,104 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import app from "./app.module.css";
 import List from "../List/List";
 import withLoader from "../../HOC/LoadWrapper/WithLoader";
 import Header from "../Header/Header";
+import { ThemeContext } from "../../context/ThemeContext.js";
 
+const App = () => {
+  const [items, setItems] = useState([]);
+  const [text, setText] = useState("");
+  const [isDone, setIsDone] = useState(false);
+  const [importance, setImportance] = useState("0");
+  const [loading, setLoading] = useState(false);
+  const [filterType, setFilterType] = useState(2);
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      text: "",
-      isDone: false,
-      importance: "0",
-      filterType: 2,
-      loading: false,
-      timer: null
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRemoveTodo = this.handleRemoveTodo.bind(this);
-    this.handleChangeImportance = this.handleChangeImportance.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
-    this.hanldeChangeIsDone = this.hanldeChangeIsDone.bind(this);
-  }
+  const [context, setContext] = useState("small");
 
-  handleChange(e) {
-    this.setState({ text: e.target.value });
-  }
+  let timer = null;
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
 
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (this.state.text.length === 0) {
+    if (text.length === 0) {
       return;
     }
 
-    if (
-      this.state.items.some(
-        (element) =>
-          element.text.toLowerCase() === this.state.text.toLowerCase()
-      )
-    ) {
+    if (items.some((item) => item.text.toLowerCase() === text.toLowerCase())) {
       return alert("такой пункт уже есть");
     }
 
     const newItem = {
-      text: this.state.text,
+      text: text,
       id: Date.now(),
       isDone: false,
       importance: "0",
       filterType: 2,
     };
+    setItems([...items, newItem]);
+    setText("");
+  };
 
-    this.setState((state) => ({
-      items: state.items.concat(newItem),
-      text: "",
-    }));
-  }
+  const handleRemoveTodo = (id) => {
+    setItems(items.filter((el) => el.id !== id));
+  };
 
-  handleRemoveTodo(id) {
-    this.setState({
-      items: this.state.items.filter((el) => el.id !== id),
-    });
-  }
-
-  handleChangeImportance(id, importance) {
-    const newArray = this.state.items.map((element) =>
+  const handleChangeImportance = (id, importance) => {
+    const newArray = items.map((element) =>
       element.id === id ? { ...element, importance: importance } : element
     );
-    this.setState({
-      items: newArray,
-    });
-  }
+    setItems(newArray);
+  };
 
-  hanldeChangeIsDone(id) {
-    const newArray = this.state.items.map((element) =>
+  const hanldeChangeIsDone = (id) => {
+    const newArray = items.map((element) =>
       element.id === id ? { ...element, isDone: !element.isDone } : element
     );
 
-    this.setState({
-      items: newArray,
-    });
+    setItems(newArray);
+  };
 
-    this.setState({
-      items: newArray,
-    });
-  }
+  const handleFilter = (e) => {
+    setFilterType(parseInt(e.target.value));
+  };
 
-  handleFilter(e) {
-    this.setState({
-      filterType: parseInt(e.target.value),
-    });
-  }
+  useEffect(() => {
+    timer = setTimeout(() => {
+      setLoading(true);
+    }, 5000);
 
-  
-  componentDidMount() {
-    this.setState({timer: setTimeout(() => {
-      this.setState({ loading: true });
-    }, 5000)}) ;
-  }
+    return function cleanTimeout() {
+      clearTimeout(timer);
+    };
+  }, []);
 
-  componentWillUnmount() {
-    this.setState({timer:clearTimeout(this.state.timer)} ) ;
-  }
+  const HeaderWithLoader = withLoader(Header, loading);
 
-  render() {
+  return (
+    <>
+      <ThemeContext.Provider value={[context, setContext]}>
+        <div className={app.container}>
+          <HeaderWithLoader
+            filterType={filterType}
+            handleFilter={handleFilter}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            text={text}
+          />
 
-    const HeaderWithLoader = withLoader(Header, this.state.loading);
-
-    return (
-      <>
-      <div className={app.container}>
-        <HeaderWithLoader
-          filterType={this.state.filterType}
-          handleFilter={this.handleFilter}
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          text={this.state.text}
-        />
-        
           <List
-            items={this.state.items}
-            handleRemoveTodo={this.handleRemoveTodo}
-            changeImportance={this.handleChangeImportance}
-            filterType={this.state.filterType}
-            changeIsDone={this.hanldeChangeIsDone}
+            items={items}
+            handleRemoveTodo={handleRemoveTodo}
+            changeImportance={handleChangeImportance}
+            filterType={filterType}
+            changeIsDone={hanldeChangeIsDone}
           />
         </div>
-      </>
-    );
-  }
-}
-
-
+      </ThemeContext.Provider>
+    </>
+  );
+};
 
 export default App;
-
-

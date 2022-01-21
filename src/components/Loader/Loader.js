@@ -2,8 +2,7 @@ import {Component} from 'react';
 
 import styles from './loader.module.css'
 
-class Loader extends Component {
-    render() {
+const Loader = () => {
        return <div  className={styles.loader}>Загрузка
                 <span></span>
                 <span></span>
@@ -11,9 +10,6 @@ class Loader extends Component {
                 <span></span>
                 <span></span>
             </div>       
-    }
-
 }
-
 
 export default Loader;
