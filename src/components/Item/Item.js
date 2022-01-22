@@ -59,7 +59,7 @@ const Item = (props) => {
 
 Item.propTypes = {
   id: PropTypes.number.isRequired,
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
   isDone: PropTypes.bool.isRequired,
   changeIsDone: PropTypes.func.isRequired,
   changeImportance: PropTypes.func.isRequired,
