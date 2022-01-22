@@ -1,129 +1,103 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import app from "./app.module.css";
 import List from "../List/List";
+import withLoader from "../../HOC/LoadWrapper/WithLoader";
+import Header from "../Header/Header";
+import { ThemeContext } from "../../context/ThemeContext.js";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      text: "",
-      isDone: false,
-      importance: 0,
-      filterType: 2,
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRemoveTodo = this.handleRemoveTodo.bind(this);
-    this.handleChangeImportance = this.handleChangeImportance.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
-    this.hanldeChangeIsDone = this.hanldeChangeIsDone.bind(this);
-  }
+const App = () => {
+  const [items, setItems] = useState([]);
+  const [text, setText] = useState("");
+  const [isDone, setIsDone] = useState(false);
+  const [importance, setImportance] = useState("0");
+  const [isLoading, setIsLoading] = useState(false);
+  const [filterType, setFilterType] = useState(2);
 
-  handleChange(e) {
-    this.setState({ text: e.target.value });
-  }
+  const [context, setContext] = useState("small");
 
-  handleSubmit(e) {
+    const handleChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (this.state.text.length === 0) {
+    if (!text.length) {
       return;
     }
 
-    if (this.state.items.some((element) => element.text.toLowerCase() === this.state.text.toLowerCase())) {
-      return alert("такой пункт уже есть");
+    for (let item of items) {
+      if (item.text.toLowerCase() === text.toLowerCase() ) {
+        return alert("такой пункт уже есть");
+      }
     }
 
     const newItem = {
-      text: this.state.text,
+      text: text,
       id: Date.now(),
       isDone: false,
-      importance: 0,
+      importance: "0",
       filterType: 2,
     };
+    setItems([...items, newItem]);
+    setText("");
+  };
 
-    this.setState((state) => ({
-      items: state.items.concat(newItem),
-      text: "",
-    }));
-  }
+  const handleRemoveTodo = (id) => {
+    setItems(items.filter((el) => el.id !== id));
+  };
 
-  handleRemoveTodo(id) {
-    this.setState({
-      items: this.state.items.filter((el) => el.id !== id),
-    });
-  }
-
-  handleChangeImportance(id, importance) {
-    const newArray = this.state.items.map((element) =>
+  const handleChangeImportance = (id, importance) => {
+    const newArray = items.map((element) =>
       element.id === id ? { ...element, importance: importance } : element
     );
-    this.setState({
-      items: newArray,
-    });
-  }
+    setItems(newArray);
+  };
 
-  hanldeChangeIsDone(id) {
-    const newArray = this.state.items.map((element) =>
+  const hanldeChangeIsDone = (id) => {
+    const newArray = items.map((element) =>
       element.id === id ? { ...element, isDone: !element.isDone } : element
     );
 
-    this.setState({
-      items: newArray,
-    });
+    setItems(newArray);
+  };
 
-    this.setState({
-      items: newArray,
-    });
-  }
+  const handleFilter = (e) => { setFilterType(parseInt(e.target.value));};
 
-  handleFilter(e) {
-    this.setState({
-      filterType: parseInt(e.target.value),
-    });
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(true);
+    }, 5000);
 
-  render() {
-    return (
-      <div className={app.container}>
-        <div className={app["todo-header"]}>
-          <h1>Список дел</h1>
+    return function cleanTimeout() {
+      clearTimeout(timer);
+    };
+  }, []);
 
-          <select
-            className={app.select}
-            defaultValue={this.state.filterType}
-            onChange={this.handleFilter}
-          >
-            <option value="2">все задачи</option>
-            <option value="1">выполненные задачи</option>
-            <option value="0">текущие задачи</option>
-          </select>
-        </div>
+  const HeaderWithLoader = withLoader(Header, isLoading);
 
-        <form className={app.form} onSubmit={this.handleSubmit}>
-          <input
-            className={app.input}
-            type="text"
-            aria-label="Описание задачи"
-            placeholder="Например, прочитать про redux"
-            id="new-todo"
-            onChange={this.handleChange}
-            value={this.state.text}
+  return (
+    <>
+      <ThemeContext.Provider value={[context, setContext]}>
+        <div className={app.container}>
+          <HeaderWithLoader
+            filterType={filterType}
+            handleFilter={handleFilter}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            text={text}
           />
 
-          <button className={app.button}>+</button>
-        </form>
-
-        <List
-          items={this.state.items}
-          handleRemoveTodo={this.handleRemoveTodo}
-          changeImportance={this.handleChangeImportance}
-          filterType={this.state.filterType}
-          changeIsDone={this.hanldeChangeIsDone}
-        />
-      </div>
-    );
-  }
-}
+          <List
+            items={items}
+            handleRemoveTodo={handleRemoveTodo}
+            changeImportance={handleChangeImportance}
+            filterType={filterType}
+            changeIsDone={hanldeChangeIsDone}
+          />
+        </div>
+      </ThemeContext.Provider>
+    </>
+  );
+};
 
 export default App;

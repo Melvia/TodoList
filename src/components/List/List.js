@@ -1,47 +1,59 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Item from "../Item/Item";
 import lst from "./list.module.css";
+import PropTypes from "prop-types";
 
-class List extends React.Component {
-  removeItem(id) {
-    this.props.handleRemoveTodo(id);
-  }
+const List = (props) => {
+  const removeItem = (id) => {
+    props.handleRemoveTodo(id);
+  };
 
-  changeImportance(id, importance) {
-    this.props.changeImportance(id, importance);
-  }
+  const handleChangeImportance = (id, importance) => {
+    props.changeImportance(id, importance);
+  };
 
-  changeIsDone(id) {
-    this.props.changeIsDone(id);
-  }
+  const handleChangeIsDone = (id) => {
+    props.changeIsDone(id);
+  };
 
-  render() {
-    // alert(this.props.filterType);
-    return (
-      <ol className={lst.todolist}>
-        {this.props.items.map(
-          (item) =>
-            (this.props.filterType === 2 ||
-              !!this.props.filterType === item.isDone) && (
-              <Item
-                key={item.id.toString()}
-                id={item.id}
-                text={item.text}
-                removeItem={() => {
-                  this.removeItem(item.id);
-                }}
-                changeImportance={(e) => {
-                  this.changeImportance(item.id, e.target.value);
-                }}
-                importance={item.importance}
-                isDone={item.isDone}
-                changeIsDone={() => this.changeIsDone(item.id)}
-              />
-            )
-        )}
-      </ol>
-    );
-  }
-}
+
+  return (
+    <ol className={lst.todolist}>
+      {props.items.map(
+        (item) =>
+          (props.filterType === 2 || !!props.filterType === item.isDone) && (
+            
+              (
+                <Item
+                  key={item.id}
+                  id={item.id}
+                  text={item.text}
+                /*  theme={context.theme} */
+                  removeItem={() => {
+                    removeItem(item.id);
+                  }}
+                  changeImportance={(e) => {
+                    handleChangeImportance(item.id, e.target.value);
+                  }}
+                  importance={item.importance}
+                  isDone={item.isDone}
+                  changeIsDone={() => handleChangeIsDone(item.id)}
+                />
+              )
+
+            
+          )
+      )}
+    </ol>
+  );
+};
+
+List.propTypes = {
+  handleRemoveTodo: PropTypes.func,
+  handlechangeImportance: PropTypes.func,
+  handleChangeIsDone: PropTypes.func,
+  items: PropTypes.array,
+  context: PropTypes.string,
+};
 
 export default List;
