@@ -10,24 +10,25 @@ const App = () => {
   const [text, setText] = useState("");
   const [isDone, setIsDone] = useState(false);
   const [importance, setImportance] = useState("0");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [filterType, setFilterType] = useState(2);
 
   const [context, setContext] = useState("small");
 
-  let timer = null;
-  const handleChange = (e) => {
+    const handleChange = (e) => {
     setText(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (text.length === 0) {
+    if (!text.length) {
       return;
     }
 
-    if (items.some((item) => item.text.toLowerCase() === text.toLowerCase())) {
-      return alert("такой пункт уже есть");
+    for (let item of items) {
+      if (item.text.toLowerCase() === text.toLowerCase() ) {
+        return alert("такой пункт уже есть");
+      }
     }
 
     const newItem = {
@@ -60,13 +61,11 @@ const App = () => {
     setItems(newArray);
   };
 
-  const handleFilter = (e) => {
-    setFilterType(parseInt(e.target.value));
-  };
+  const handleFilter = (e) => { setFilterType(parseInt(e.target.value));};
 
   useEffect(() => {
-    timer = setTimeout(() => {
-      setLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(true);
     }, 5000);
 
     return function cleanTimeout() {
@@ -74,7 +73,7 @@ const App = () => {
     };
   }, []);
 
-  const HeaderWithLoader = withLoader(Header, loading);
+  const HeaderWithLoader = withLoader(Header, isLoading);
 
   return (
     <>

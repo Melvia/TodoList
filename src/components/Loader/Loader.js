@@ -1,14 +1,14 @@
-import {Component} from 'react';
+import React from 'react';
 
 import styles from './loader.module.css'
 
 const Loader = () => {
        return <div  className={styles.loader}>Загрузка
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
             </div>       
 }
 

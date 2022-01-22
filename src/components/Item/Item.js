@@ -58,13 +58,13 @@ const Item = (props) => {
 };
 
 Item.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   text: PropTypes.string,
-  isDone: PropTypes.bool,
-  changeIsDone: PropTypes.func,
-  changeImportance: PropTypes.func,
-  importance: PropTypes.string,
-  removeItem: PropTypes.func,
+  isDone: PropTypes.bool.isRequired,
+  changeIsDone: PropTypes.func.isRequired,
+  changeImportance: PropTypes.func.isRequired,
+  importance: PropTypes.string.isRequired,
+  removeItem: PropTypes.func.isRequired,
 };
 
 export default Item;
