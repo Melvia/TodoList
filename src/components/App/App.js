@@ -4,6 +4,7 @@ import List from "../List/List";
 import withLoader from "../../HOC/LoadWrapper/WithLoader";
 import Header from "../Header/Header";
 import { ThemeContext } from "../../context/ThemeContext.js";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const App = () => {
   const [items, setItems] = useState([]);
@@ -15,7 +16,7 @@ const App = () => {
 
   const [context, setContext] = useState("small");
 
-    const handleChange = (e) => {
+  const handleChange = (e) => {
     setText(e.target.value);
   };
 
@@ -26,7 +27,7 @@ const App = () => {
     }
 
     for (let item of items) {
-      if (item.text.toLowerCase() === text.toLowerCase() ) {
+      if (item.text.toLowerCase() === text.toLowerCase()) {
         return alert("такой пункт уже есть");
       }
     }
@@ -61,14 +62,16 @@ const App = () => {
     setItems(newArray);
   };
 
-  const handleFilter = (e) => { setFilterType(parseInt(e.target.value));};
+  const handleFilter = (e) => {
+    setFilterType(parseInt(e.target.value));
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(true);
-    }, 5000);
+    }, 3000);
 
-    return function cleanTimeout() {
+    return () => {
       clearTimeout(timer);
     };
   }, []);
