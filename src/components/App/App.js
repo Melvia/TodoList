@@ -5,8 +5,11 @@ import withLoader from "../../HOC/LoadWrapper/WithLoader";
 import Header from "../Header/Header";
 import { ThemeContext } from "../../context/ThemeContext.js";
 
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment, incrementByAmount } from "./../../redux/counter";
+
 const App = () => {
-  const [items, setItems] = useState([]);
+//  const [items, setItems] = useState([]);
   const [text, setText] = useState("");
   const [isDone, setIsDone] = useState(false);
   const [importance, setImportance] = useState("0");
@@ -14,8 +17,8 @@ const App = () => {
   const [filterType, setFilterType] = useState(2);
 
   const [context, setContext] = useState("small");
-
-    const handleChange = (e) => {
+/*
+  const handleChange = (e) => {
     setText(e.target.value);
   };
 
@@ -26,7 +29,7 @@ const App = () => {
     }
 
     for (let item of items) {
-      if (item.text.toLowerCase() === text.toLowerCase() ) {
+      if (item.text.toLowerCase() === text.toLowerCase()) {
         return alert("такой пункт уже есть");
       }
     }
@@ -60,8 +63,10 @@ const App = () => {
 
     setItems(newArray);
   };
-
-  const handleFilter = (e) => { setFilterType(parseInt(e.target.value));};
+*/
+  const handleFilter = (e) => {
+    setFilterType(parseInt(e.target.value));
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -75,9 +80,24 @@ const App = () => {
 
   const HeaderWithLoader = withLoader(Header, isLoading);
 
+  //Убрать!!!
+  
+  const { items } = useSelector((state) => state.items);
+  const dispatch = useDispatch();
+
+  
+
   return (
     <>
       <ThemeContext.Provider value={[context, setContext]}>
+        /* убрать!!! */
+        <h1> The count is: {count}</h1>
+        <button onClick={() => dispatch(increment())}>increment</button>
+        <button onClick={() => dispatch(decrement())}>decrement</button>
+        <button onClick={() => dispatch(incrementByAmount(33))}>
+          Increment by 33
+        </button>
+        /* конец убрать!!! */
         <div className={app.container}>
           <HeaderWithLoader
             filterType={filterType}
