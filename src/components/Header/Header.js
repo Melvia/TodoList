@@ -1,18 +1,14 @@
 import React from "react";
 import header from "./header.module.css";
 import app from "./../App/app.module.css";
-import PropTypes from "prop-types";
 
 import ThemedButton from "./../ThemedButton/ThemedButton";
 
 import { useDispatch, useSelector } from "react-redux";
-import { removeItem, addItem, changeImportance, changeIsDone } from "./../../redux/slice";
-
-
-
+import {  changeText, filter } from "./../../redux/slice";
 
 const Header = (props) => {
-const { text } = useSelector((state) => state.todo);
+const { text, filterType } = useSelector((state) => state.todo);
 const dispatch = useDispatch();
   return (
     <>
@@ -21,8 +17,9 @@ const dispatch = useDispatch();
 
         <select
           className={header.select}
-          defaultValue={props.filterType}
-          onChange={props.handleFilter}
+          defaultValue={filterType}
+          onChange={(e)=>{console.log("filterType", filterType);
+          dispatch(filter(e.target.value))}}
         >
           <option value="2">все задачи</option>
           <option value="1">выполненные задачи</option>
@@ -38,7 +35,7 @@ const dispatch = useDispatch();
           aria-label="Описание задачи"
           placeholder="Например, прочитать про redux"
           id="new-todo"
-          onChange={props.handleChange}
+          onChange = {(e)=>dispatch(changeText(e.target.value))}
           value={text}
         />
 

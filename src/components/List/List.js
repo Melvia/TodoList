@@ -1,53 +1,25 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import Item from "../Item/Item";
 import lst from "./list.module.css";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  removeItem,
-  changeImportance,
-  changeIsDone,
-} from "./../../redux/slice";
+import {  useSelector } from "react-redux";
 
 const List = (props) => {
-  const { items } = useSelector((state) => state.todo);
-  const dispatch = useDispatch();
-  /*
-  const removeItem = (id) => {
-    props.handleRemoveTodo(id);
-  };
-
-  const handleChangeImportance = (id, importance) => {
-    props.changeImportance(id, importance);
-  };
-
-  const handleChangeIsDone = (id) => {
-    props.changeIsDone(id);
-  };
-
-*/
-
-  return (
+  
+  const { items, filterType } = useSelector((state) => state.todo);
+  
+    return (
     <ol className={lst.todolist}>
       {items.map(
         (item) =>
-          (props.filterType === 2 || !!props.filterType === item.isDone) && (
+          (filterType === 2 || !!filterType === item.isDone) && (
             <Item
               key={item.id}
               id={item.id}
               text={item.text}
               importance={item.importance}
               isDone={item.isDone}
-              /*  theme={context.theme} 
-                  removeItem={() => {
-                    removeItem(item.id);
-                  }}
-                  changeImportance={(e) => {
-                    handleChangeImportance(item.id, e.target.value);
-                  }}
-               
-                  changeIsDone={() => handleChangeIsDone(item.id)}
-                  */
+
             />
           )
       )}
@@ -56,11 +28,7 @@ const List = (props) => {
 };
 
 List.propTypes = {
-  handleRemoveTodo: PropTypes.func,
-  handlechangeImportance: PropTypes.func,
-  handleChangeIsDone: PropTypes.func,
-  items: PropTypes.array,
-  context: PropTypes.string,
+  items: PropTypes.array
 };
 
 export default List;

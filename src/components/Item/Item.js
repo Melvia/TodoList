@@ -4,7 +4,7 @@ import a from "./../App/app.module.css";
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
 import { ThemeContext } from "../../context/ThemeContext";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import {
   removeItem,
   changeImportance,
@@ -12,10 +12,11 @@ import {
 } from "./../../redux/slice";
 
 const Item = (props) => {
-  const { todo } = useSelector((state) => state.todo);
+  
   const dispatch = useDispatch();
+  
 
-  const [context, setContext] = useContext(ThemeContext);
+  const [context] = useContext(ThemeContext);
   let cx = classNames.bind(i);
 
   let className = cx({
@@ -41,7 +42,7 @@ const Item = (props) => {
           className={`${i.input} ${themeClassName}`}
           type="checkbox"
           checked={props.isDone}
-          onChange={() => dispatch(changeIsDone())}
+          onChange={() => dispatch(changeIsDone(props.id))}
         ></input>
 
         <span className={spanClassName}>{props.text}</span>
@@ -49,7 +50,7 @@ const Item = (props) => {
         <div className={i.info}>
           <select
             className={`${i.importance} ${themeClassName}`}
-            onChange={(e) => dispatch(changeImportance(e.target.value))}
+            onChange={(e) =>{dispatch(changeImportance({id: props.id, importance: e.target.value}))} }
             value={props.importance}
           >
             <option value="0">обычная</option>
@@ -72,10 +73,8 @@ Item.propTypes = {
   id: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   isDone: PropTypes.bool.isRequired,
-  changeIsDone: PropTypes.func.isRequired,
-  changeImportance: PropTypes.func.isRequired,
   importance: PropTypes.string.isRequired,
-  removeItem: PropTypes.func.isRequired,
+
 };
 
 export default Item;
