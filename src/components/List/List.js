@@ -9,11 +9,8 @@ import {
   changeIsDone,
 } from "./../../redux/slice";
 
-
 const List = (props) => {
-
-
-  const { todo } = useSelector((state) => state.todo);
+  const { items } = useSelector((state) => state.todo);
   const dispatch = useDispatch();
   /*
   const removeItem = (id) => {
@@ -29,21 +26,19 @@ const List = (props) => {
   };
 
 */
- 
+
   return (
     <ol className={lst.todolist}>
-      {todo.items.map(
+      {items.map(
         (item) =>
           (props.filterType === 2 || !!props.filterType === item.isDone) && (
-            
-              (
-                <Item
-                  key={item.id}
-                  id={item.id}
-                  text={item.text}
-                  importance={item.importance}
-                  isDone={item.isDone}
-                /*  theme={context.theme} 
+            <Item
+              key={item.id}
+              id={item.id}
+              text={item.text}
+              importance={item.importance}
+              isDone={item.isDone}
+              /*  theme={context.theme} 
                   removeItem={() => {
                     removeItem(item.id);
                   }}
@@ -53,10 +48,7 @@ const List = (props) => {
                
                   changeIsDone={() => handleChangeIsDone(item.id)}
                   */
-                />
-              )
-
-            
+            />
           )
       )}
     </ol>

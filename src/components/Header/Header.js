@@ -12,7 +12,7 @@ import { removeItem, addItem, changeImportance, changeIsDone } from "./../../red
 
 
 const Header = (props) => {
-const { todo } = useSelector((state) => state.todo);
+const { text } = useSelector((state) => state.todo);
 const dispatch = useDispatch();
   return (
     <>
@@ -39,7 +39,7 @@ const dispatch = useDispatch();
           placeholder="Например, прочитать про redux"
           id="new-todo"
           onChange={props.handleChange}
-          value={todo.text}
+          value={text}
         />
 
         <button className={app.button}>+</button>
