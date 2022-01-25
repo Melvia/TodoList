@@ -2,8 +2,20 @@ import React, { useState, useContext } from "react";
 import Item from "../Item/Item";
 import lst from "./list.module.css";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeItem,
+  changeImportance,
+  changeIsDone,
+} from "./../../redux/slice";
+
 
 const List = (props) => {
+
+
+  const { todo } = useSelector((state) => state.todo);
+  const dispatch = useDispatch();
+  /*
   const removeItem = (id) => {
     props.handleRemoveTodo(id);
   };
@@ -16,10 +28,11 @@ const List = (props) => {
     props.changeIsDone(id);
   };
 
-
+*/
+ 
   return (
     <ol className={lst.todolist}>
-      {props.items.map(
+      {todo.items.map(
         (item) =>
           (props.filterType === 2 || !!props.filterType === item.isDone) && (
             
@@ -28,16 +41,18 @@ const List = (props) => {
                   key={item.id}
                   id={item.id}
                   text={item.text}
-                /*  theme={context.theme} */
+                  importance={item.importance}
+                  isDone={item.isDone}
+                /*  theme={context.theme} 
                   removeItem={() => {
                     removeItem(item.id);
                   }}
                   changeImportance={(e) => {
                     handleChangeImportance(item.id, e.target.value);
                   }}
-                  importance={item.importance}
-                  isDone={item.isDone}
+               
                   changeIsDone={() => handleChangeIsDone(item.id)}
+                  */
                 />
               )
 

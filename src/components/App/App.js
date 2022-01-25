@@ -4,23 +4,33 @@ import List from "../List/List";
 import withLoader from "../../HOC/LoadWrapper/WithLoader";
 import Header from "../Header/Header";
 import { ThemeContext } from "../../context/ThemeContext.js";
-
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment, incrementByAmount } from "./../../redux/counter";
+import {
+  removeItem,
+  addItem,
+  changeImportance,
+  changeIsDone,
+} from "./../../redux/slice";
 
 const App = () => {
-//  const [items, setItems] = useState([]);
+  //  const [items, setItems] = useState([]);
+
   const [text, setText] = useState("");
-  const [isDone, setIsDone] = useState(false);
-  const [importance, setImportance] = useState("0");
+  /* const [isDone, setIsDone] = useState(false);
+  const [importance, setImportance] = useState("0"); */
   const [isLoading, setIsLoading] = useState(false);
+
   const [filterType, setFilterType] = useState(2);
 
   const [context, setContext] = useState("small");
-/*
+
   const handleChange = (e) => {
     setText(e.target.value);
   };
+
+
+  const { todo } = useSelector((state) => state.todo);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,22 +38,17 @@ const App = () => {
       return;
     }
 
-    for (let item of items) {
+    for (let item of todo.items) {
       if (item.text.toLowerCase() === text.toLowerCase()) {
         return alert("такой пункт уже есть");
       }
     }
 
-    const newItem = {
-      text: text,
-      id: Date.now(),
-      isDone: false,
-      importance: "0",
-      filterType: 2,
-    };
-    setItems([...items, newItem]);
+    dispatch(addItem(text));
     setText("");
   };
+
+  /*
 
   const handleRemoveTodo = (id) => {
     setItems(items.filter((el) => el.id !== id));
@@ -80,40 +85,18 @@ const App = () => {
 
   const HeaderWithLoader = withLoader(Header, isLoading);
 
-  //Убрать!!!
-  
-  const { items } = useSelector((state) => state.items);
-  const dispatch = useDispatch();
-
-  
-
   return (
     <>
       <ThemeContext.Provider value={[context, setContext]}>
-        /* убрать!!! */
-        <h1> The count is: {count}</h1>
-        <button onClick={() => dispatch(increment())}>increment</button>
-        <button onClick={() => dispatch(decrement())}>decrement</button>
-        <button onClick={() => dispatch(incrementByAmount(33))}>
-          Increment by 33
-        </button>
-        /* конец убрать!!! */
         <div className={app.container}>
           <HeaderWithLoader
             filterType={filterType}
             handleFilter={handleFilter}
             handleSubmit={handleSubmit}
             handleChange={handleChange}
-            text={text}
           />
 
-          <List
-            items={items}
-            handleRemoveTodo={handleRemoveTodo}
-            changeImportance={handleChangeImportance}
-            filterType={filterType}
-            changeIsDone={hanldeChangeIsDone}
-          />
+          <List />
         </div>
       </ThemeContext.Provider>
     </>

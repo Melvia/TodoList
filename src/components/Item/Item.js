@@ -4,11 +4,20 @@ import a from "./../App/app.module.css";
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
 import { ThemeContext } from "../../context/ThemeContext";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeItem,
+  changeImportance,
+  changeIsDone,
+} from "./../../redux/slice";
 
 const Item = (props) => {
+  const { todo } = useSelector((state) => state.todo);
+  const dispatch = useDispatch();
+
   const [context, setContext] = useContext(ThemeContext);
   let cx = classNames.bind(i);
-  
+
   let className = cx({
     important: props.importance === "1",
     most_important: props.importance === "2",
@@ -25,7 +34,6 @@ const Item = (props) => {
     big: context === "big",
   });
 
-  
   return (
     <li id={props.id} className={`${className} ${themeClassName}`}>
       <label className={i.item}>
@@ -33,7 +41,7 @@ const Item = (props) => {
           className={`${i.input} ${themeClassName}`}
           type="checkbox"
           checked={props.isDone}
-          onChange={props.changeIsDone}
+          onChange={() => dispatch(changeIsDone())}
         ></input>
 
         <span className={spanClassName}>{props.text}</span>
@@ -41,14 +49,17 @@ const Item = (props) => {
         <div className={i.info}>
           <select
             className={`${i.importance} ${themeClassName}`}
-            onChange={props.changeImportance}
+            onChange={(e) => dispatch(changeImportance(e.target.value))}
             value={props.importance}
           >
             <option value="0">обычная</option>
             <option value="1">важная</option>
             <option value="2">очень важная</option>
           </select>
-          <button className={a.button} onClick={props.removeItem}>
+          <button
+            className={a.button}
+            onClick={() => dispatch(removeItem(props.id))}
+          >
             -
           </button>
         </div>

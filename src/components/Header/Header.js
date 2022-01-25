@@ -5,7 +5,15 @@ import PropTypes from "prop-types";
 
 import ThemedButton from "./../ThemedButton/ThemedButton";
 
+import { useDispatch, useSelector } from "react-redux";
+import { removeItem, addItem, changeImportance, changeIsDone } from "./../../redux/slice";
+
+
+
+
 const Header = (props) => {
+const { todo } = useSelector((state) => state.todo);
+const dispatch = useDispatch();
   return (
     <>
       <div className={header["todo-header"]}>
@@ -31,7 +39,7 @@ const Header = (props) => {
           placeholder="Например, прочитать про redux"
           id="new-todo"
           onChange={props.handleChange}
-          value={props.text}
+          value={todo.text}
         />
 
         <button className={app.button}>+</button>
@@ -40,11 +48,6 @@ const Header = (props) => {
   );
 };
 
-Header.propTypes = {
-  filterType: PropTypes.number,
-  handleFilter: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
-};
+
 
 export default Header;

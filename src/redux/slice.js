@@ -2,29 +2,37 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const todoSlice = createSlice({
-  name: "items",
-  initialState: [],
+  name: "todo",
+  initialState: {items: [],
+                  text: "",
+                  isDone: false,
+                  importance: "0",
+                  filterType: 2, },
   reducers: {
-    removeItem: (items, action) => {
-      items.filter((el) => el.id !== action.payload.id);
+    removeItem: (state, action) => {
+      state.items.filter((el) => el.id !== action.payload.id);
     },
-    addItem: (items, action) => {
-      items.push({
+    addItem: (state, action) => {
+      state.items.push({
         id: Date.now(),
-        text: action.payload.text,
+        text: state.text,
         isDone: false,
         importance: "0",
         filterType: 2,
       });
     },
 
-    changeImportance: (items, action) => {
+    changeImportance: ({items}, action) => {
       items = items.map((element) =>  element.id === action.payload.id ? { ...element, importance: action.payload.importance } : element)
     },
 
-    changeIsDone: (items, action) => {
+    changeIsDone: ({items}, action) => {
       items = items.map((element) =>  element.id === action.payload.id ? { ...element, isDone: !element.isDone } : element)
     },
+
+    filter: ({filterType}, action) => {
+      filterType = parseInt(action.payload);
+    }
 
   },
 });
