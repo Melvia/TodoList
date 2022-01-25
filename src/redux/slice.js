@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import {ALL} from './../constants/filterTypes';
+import {BASE} from './../constants/typesImportance'
 
 const todoSlice = createSlice({
   name: "todo",
   initialState: { items: [],
                   text: "",
                   isDone: false,
-                  importance: "0",
-                  filterType: 2},
+                  importance: BASE,
+                  filterType: ALL},
   reducers: {
     removeItem: (state, action) => {
       state.items = state.items.filter((el) => el.id !== action.payload);
@@ -17,8 +18,8 @@ const todoSlice = createSlice({
         id: Date.now(),
         text: action.payload,
         isDone: false,
-        importance: "0",
-        filterType: 2,
+        importance: BASE,
+        filterType: ALL,
       });
       state.text = "";
     },

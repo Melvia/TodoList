@@ -5,11 +5,13 @@ import app from "./../App/app.module.css";
 import ThemedButton from "./../ThemedButton/ThemedButton";
 
 import { useDispatch, useSelector } from "react-redux";
-import {  changeText, filter } from "./../../redux/slice";
+import { changeText, filter } from "./../../redux/slice";
+
+import { ALL, IS_DONE, IS_NOT_DONE } from "./../../constants/filterTypes";
 
 const Header = (props) => {
-const { text, filterType } = useSelector((state) => state.todo);
-const dispatch = useDispatch();
+  const { text, filterType } = useSelector((state) => state.todo);
+  const dispatch = useDispatch();
   return (
     <>
       <div className={header["todo-header"]}>
@@ -18,12 +20,13 @@ const dispatch = useDispatch();
         <select
           className={header.select}
           defaultValue={filterType}
-          onChange={(e)=>{console.log("filterType", filterType);
-          dispatch(filter(e.target.value))}}
+          onChange={(e) => {
+            dispatch(filter(e.target.value));
+          }}
         >
-          <option value="2">все задачи</option>
-          <option value="1">выполненные задачи</option>
-          <option value="0">текущие задачи</option>
+          <option value={ALL}>все задачи</option>
+          <option value={IS_DONE}>выполненные задачи</option>
+          <option value={IS_NOT_DONE}>текущие задачи</option>
         </select>
         <ThemedButton />
       </div>
@@ -35,7 +38,7 @@ const dispatch = useDispatch();
           aria-label="Описание задачи"
           placeholder="Например, прочитать про redux"
           id="new-todo"
-          onChange = {(e)=>dispatch(changeText(e.target.value))}
+          onChange={(e) => dispatch(changeText(e.target.value))}
           value={text}
         />
 
@@ -44,7 +47,5 @@ const dispatch = useDispatch();
     </>
   );
 };
-
-
 
 export default Header;

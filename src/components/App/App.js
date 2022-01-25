@@ -1,22 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import app from "./app.module.css";
 import List from "../List/List";
-import withLoader from "../../HOC/LoadWrapper/WithLoader";
+
 import Header from "../Header/Header";
 import { ThemeContext } from "../../context/ThemeContext.js";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addItem,
-  changeText,
-} from "./../../redux/slice";
+import { addItem } from "./../../redux/slice";
+
+import { SMALL } from "./../../constants/fontSizes";
 
 const App = () => {
+  const [context, setContext] = useState(SMALL);
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [context, setContext] = useState("small");
-
-  const { items, text} = useSelector((state) => state.todo);
+  const { items, text } = useSelector((state) => state.todo);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -32,31 +28,13 @@ const App = () => {
     }
 
     dispatch(addItem(text));
-    
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(true);
-    }, 3000);
-
-    return function cleanTimeout() {
-      clearTimeout(timer);
-    };
-  }, []);
-
-  const HeaderWithLoader = withLoader(Header, isLoading);
 
   return (
     <>
       <ThemeContext.Provider value={[context, setContext]}>
         <div className={app.container}>
-          <HeaderWithLoader          
-            handleSubmit={handleSubmit}
-            handleChange={(e)=> dispatch(changeText(e.target.value)) }
-            text={text}
-          />
-
+          <Header handleSubmit={handleSubmit} text={text} />
           <List />
         </div>
       </ThemeContext.Provider>
