@@ -1,5 +1,6 @@
-import { makeObservable, observable, action} from 'mobx';
-import {BASE} from './../constants/typesImportance';
+import {BASE} from '../constants/typesImportance';
+import { observer } from "mobx-react-lite";
+import { makeObservable, observable, computed, action } from "mobx";
 
 
 class TodoList {
@@ -27,16 +28,10 @@ class TodoList {
     }
     
     constructor() {
-        makeObservable(this, {
-            items : observable,
-            addItem : action,
-            removeItem : action,
-            changeImportance:action,
-            changeIsDone:action,
-        })        
-
-        
-    }
+        makeAutoObservable(this);
+    }    
+    
 
 }
 
+export default TodoList;

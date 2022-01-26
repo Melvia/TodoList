@@ -16,7 +16,7 @@ const App = () => {
   const [filterType, setFilterType] = useState(2);
 
   const [context, setContext] = useState("small");
-
+/*
     const handleChange = (e) => {
     setText(e.target.value);
   };
@@ -62,7 +62,7 @@ const App = () => {
 
     setItems(newArray);
   };
-
+*/
   const handleFilter = (e) => { setFilterType(parseInt(e.target.value));};
 
   useEffect(() => {
@@ -75,13 +75,13 @@ const App = () => {
     };
   }, []);
 
-  const HeaderWithLoader = withLoader(Header, isLoading);
+
 
   return (
     <>
       <ThemeContext.Provider value={[context, setContext]}>
         <div className={app.container}>
-          <HeaderWithLoader
+          <Header
             filterType={filterType}
             handleFilter={handleFilter}
             handleSubmit={handleSubmit}

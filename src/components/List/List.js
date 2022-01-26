@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 import { observer } from "mobx-react-lite";
 import { ALL } from "./../../constants/filterTypes";
 
-const TodoList = observer(({ TodoList }) => {
+const todolist = new TodoList();
+const List = observer(({todolist}) => {
   return (
     <ol className={lst.todolist}>
       {props.items.map(
