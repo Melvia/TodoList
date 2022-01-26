@@ -4,6 +4,7 @@ import a from "./../App/app.module.css";
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
 import { ThemeContext } from "../../context/ThemeContext";
+import {BASE, IMPORTANT, MOST_IMPORTANT} from './../../constants/typesImportance'
 
 const Item = (props) => {
   const [context, setContext] = useContext(ThemeContext);
