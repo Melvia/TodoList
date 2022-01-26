@@ -8,8 +8,10 @@ import { ThemeContext } from "../../context/ThemeContext.js";
 const App = () => {
   const [items, setItems] = useState([]);
   const [text, setText] = useState("");
+  //
   const [isDone, setIsDone] = useState(false);
   const [importance, setImportance] = useState("0");
+  //
   const [isLoading, setIsLoading] = useState(false);
   const [filterType, setFilterType] = useState(2);
 
