@@ -1,11 +1,14 @@
 import { BASE } from "./../constants/typesImportance";
-import { observer } from "mobx-react-lite";
 import { makeAutoObservable } from "mobx";
 import { ALL } from "./../constants/filterTypes";
 
 class TodoStore {
   items = [];
   filterType = ALL;
+  text="";
+  isDone = false;
+  importance = BASE;
+
 
   changeImportance(id, importance) {
     this.items = this.items.map((element) =>
@@ -27,14 +30,19 @@ class TodoStore {
     this.items = this.items.filter((el) => el.id !== id);
   }
 
-  constructor(filterType) {
+  constructor() {
     makeAutoObservable(this);
-    this.filterType = filterType;
+
   }
 
-  filter(value) {
+  changeFilter(value) {
     this.filterType = value;
+  }
+
+  changeText(value) {
+    this.text = value;
   }
 }
 
-export default TodoStore;
+const todostore = new TodoStore();
+export default todostore;
