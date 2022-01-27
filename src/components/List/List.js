@@ -3,7 +3,7 @@ import Item from "../Item/Item";
 import lst from "./list.module.css";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { ALL } from "../../constants/filterTypes";
+import { ALL } from "../../constants/filterTypes.ts";
 
 const List = () => {
   const { items, filterType } = useSelector((state) => state.todo);

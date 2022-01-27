@@ -7,7 +7,7 @@ import ThemedButton from "./../ThemedButton/ThemedButton";
 import { useDispatch, useSelector } from "react-redux";
 import { changeText, filter } from "./../../redux/slice";
 
-import { ALL, IS_DONE, IS_NOT_DONE } from "./../../constants/filterTypes";
+import { ALL, IS_DONE, IS_NOT_DONE } from "./../../constants/filterTypes.ts";
 
 const Header = (props) => {
   const { text, filterType } = useSelector((state) => state.todo);

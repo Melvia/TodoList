@@ -1,24 +1,27 @@
 import React, { useContext } from "react";
-import i from "./item.module.css";
-import a from "./../App/app.module.css";
+import * as i from "./item.module.css";
+import * as a from "./../App/app.module.css";
 import classNames from "classnames/bind";
-import PropTypes from "prop-types";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useDispatch} from "react-redux";
+
+import {BIG, SMALL} from '../../constants/fontSizes'
+import {IMPORTANT, MOST_IMPORTANT} from '../../constants/typesImportance'
+
 import {
   removeItem,
   changeImportance,
   changeIsDone,
-} from "./../../redux/slice";
+} from "../../redux/slice";
 
 const Item = (props) => {
   
-  const dispatch = useDispatch();
-  
+  const dispatch = useDispatch(); 
 
   const [context] = useContext(ThemeContext);
   let cx = classNames.bind(i);
 
+  const clsName : string = i.class__
   let className = cx({
     important: props.importance === "1",
     most_important: props.importance === "2",
@@ -31,8 +34,8 @@ const Item = (props) => {
   });
 
   let themeClassName = cx({
-    small: context === "small",
-    big: context === "big",
+    small: context === SMALL,
+    big: context === BIG,
   });
 
   return (
