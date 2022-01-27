@@ -1,59 +1,29 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import Item from "../Item/Item";
 import lst from "./list.module.css";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { ALL } from "../../constants/filterTypes";
 
-const List = (props) => {
-  const removeItem = (id) => {
-    props.handleRemoveTodo(id);
-  };
-
-  const handleChangeImportance = (id, importance) => {
-    props.changeImportance(id, importance);
-  };
-
-  const handleChangeIsDone = (id) => {
-    props.changeIsDone(id);
-  };
-
+const List = () => {
+  const { items, filterType } = useSelector((state) => state.todo);
 
   return (
     <ol className={lst.todolist}>
-      {props.items.map(
+      {items.map(
         (item) =>
-          (props.filterType === 2 || !!props.filterType === item.isDone) && (
-            
-              (
-                <Item
-                  key={item.id}
-                  id={item.id}
-                  text={item.text}
-                /*  theme={context.theme} */
-                  removeItem={() => {
-                    removeItem(item.id);
-                  }}
-                  changeImportance={(e) => {
-                    handleChangeImportance(item.id, e.target.value);
-                  }}
-                  importance={item.importance}
-                  isDone={item.isDone}
-                  changeIsDone={() => handleChangeIsDone(item.id)}
-                />
-              )
-
-            
+          (filterType === ALL || !!filterType === item.isDone) && (
+            <Item
+              key={item.id}
+              id={item.id}
+              text={item.text}
+              importance={item.importance}
+              isDone={item.isDone}
+            />
           )
       )}
     </ol>
   );
-};
-
-List.propTypes = {
-  handleRemoveTodo: PropTypes.func,
-  handlechangeImportance: PropTypes.func,
-  handleChangeIsDone: PropTypes.func,
-  items: PropTypes.array,
-  context: PropTypes.string,
 };
 
 export default List;
