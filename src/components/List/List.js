@@ -6,30 +6,29 @@ import { observer } from "mobx-react-lite";
 import { ALL } from "./../../constants/filterTypes";
 
 //const todolist = new TodoList();
-const List = observer(({store}) => {
+const List = (props) => {
   return (
     <ol className={lst.todolist}>
-      {store.items.map(
+      {props.items.map(
         (item) =>
-          (store.filterType === ALL || !!store.filterType === item.isDone) && (
-            <Item
+          (<Item
               key={item.id}
               id={item.id}
               text={item.text}
               removeItem={() => {
-                store.removeItem(item.id);
+                props.removeItem(item.id);
               }}
               changeImportance={(e) => {
-                store.changeImportance(item.id, e.target.value);
+                props.changeImportance(item.id, e.target.value);
               }}
               importance={item.importance}
               isDone={item.isDone}
-              changeIsDone={() => store.changeIsDone(item.id)}
+              changeIsDone={() => props.changeIsDone(item.id)}
             />
           )
       )}
     </ol>
   );
-});
+};
 
 export default List;
