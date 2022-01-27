@@ -1,34 +1,37 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import Item from "../Item/Item";
 import lst from "./list.module.css";
 import PropTypes from "prop-types";
-import { observer } from "mobx-react-lite";
 import { ALL } from "./../../constants/filterTypes";
 
-//const todolist = new TodoList();
 const List = (props) => {
   return (
     <ol className={lst.todolist}>
       {props.items.map(
         (item) =>
-          (<Item
+          (props.filterType === ALL || !!props.filterType === item.isDone) && (
+            <Item
               key={item.id}
               id={item.id}
               text={item.text}
               removeItem={() => {
-                props.removeItem(item.id);
+                props.handleRemoveTodo(item.id);
               }}
               changeImportance={(e) => {
-                props.changeImportance(item.id, e.target.value);
+                props.handleChangeImportance(item.id, e.target.value);
               }}
               importance={item.importance}
               isDone={item.isDone}
-              changeIsDone={() => props.changeIsDone(item.id)}
+              changeIsDone={() => props.handleChangeIsDone(item.id)}
             />
           )
       )}
     </ol>
   );
+};
+
+List.propTypes = {
+  items: PropTypes.array.isRequired,
 };
 
 export default List;

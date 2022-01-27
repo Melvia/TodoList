@@ -1,28 +1,15 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import app from "./app.module.css";
 import List from "../List/List";
-import withLoader from "../../HOC/LoadWrapper/WithLoader";
 import Header from "../Header/Header";
 import { ThemeContext } from "../../context/ThemeContext.js";
-import TodoStore from './../../Observable/TodoStore';
 
-const App = () => {
-  const store = new TodoStore();
-  const [items, setItems] = useState([]);
-  const [text, setText] = useState("");
-  /*
-  const [isDone, setIsDone] = useState(false);
-  const [importance, setImportance] = useState("0");
-  
-  const [isLoading, setIsLoading] = useState(false);
-*/  
-  const [filterType, setFilterType] = useState(2);
+import { observer, inject } from "mobx-react";
+import { SMALL } from "./../../constants/fontSizes";
 
-  const [context, setContext] = useState("small");
-
-  const handleChange = (e) => {
-    setText(e.target.value);
-  };
+const App = ({ store }) => {
+  const { text } = store;
+  const [context, setContext] = useState(SMALL);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +17,7 @@ const App = () => {
       return;
     }
 
-    for (let item of items) {
+    for (let item of store.items) {
       if (item.text.toLowerCase() === text.toLowerCase()) {
         return alert("такой пункт уже есть");
       }
@@ -41,65 +28,65 @@ const App = () => {
       id: Date.now(),
       isDone: false,
       importance: "0",
-      filterType: 2,
     };
-    setItems([...items, newItem]);
-    setText("");
-  };
-  /*
-  const handleRemoveTodo = (id) => {
-    setItems(items.filter((el) => el.id !== id));
+    store.addItem(newItem);
+    store.changeText("");
   };
 
-  const handleChangeImportance = (id, importance) => {
-    const newArray = items.map((element) =>
-      element.id === id ? { ...element, importance: importance } : element
-    );
-    setItems(newArray);
-  };
+  const handleRemoveTodo = useCallback(
+    (id) => {
+      store.removeItem(id);
+    },
+    [store.items]
+  );
 
-  const hanldeChangeIsDone = (id) => {
-    const newArray = items.map((element) =>
-      element.id === id ? { ...element, isDone: !element.isDone } : element
-    );
+  const handleChangeIsDone = useCallback(
+    (id) => {
+      store.changeIsDone(id);
+    },
+    [store.items]
+  );
 
-    setItems(newArray);
-  };
-*/
-  const handleFilter = (e) => {
-    setFilterType(parseInt(e.target.value));
-  };
+  const handleChangeImportance = useCallback(
+    (id, importance) => {
+      store.changeImportance(id, importance);
+    },
+    [store.items]
+  );
 
-  /*
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(true);
-    }, 5000);
-
-    return function cleanTimeout() {
-      clearTimeout(timer);
-    };
-  }, []);
-*/
+  const handleFilter = useCallback(
+    (e) => {
+      store.changeFilter(parseInt(e.target.value));
+    },
+    [store.filterType]
+  );
 
   return (
     <>
       <ThemeContext.Provider value={[context, setContext]}>
         <div className={app.container}>
           <Header
-            filterType={filterType}
+            filterType={store.filterType}
             handleFilter={handleFilter}
             handleSubmit={handleSubmit}
-            handleChange={handleChange}
-            text={text}
+            handleChange={(e) => {
+              store.changeText(e.target.value);
+            }}
+            text={store.text}
             store={store}
           />
 
-          <List store={store} text={text} />
+          <List
+            handleChangeImportance={handleChangeImportance}
+            handleRemoveTodo={handleRemoveTodo}
+            handleChangeIsDone={handleChangeIsDone}
+            items={store.items}
+            filterType={store.filterType}
+          />
         </div>
       </ThemeContext.Provider>
     </>
   );
 };
 
-export default App;
+export default inject("store")(observer(App));

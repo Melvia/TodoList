@@ -4,15 +4,16 @@ import a from "./../App/app.module.css";
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
 import { ThemeContext } from "../../context/ThemeContext";
-import {BASE, IMPORTANT, MOST_IMPORTANT} from './../../constants/typesImportance'
+import { IMPORTANT, MOST_IMPORTANT } from "./../../constants/typesImportance";
+import { BIG, SMALL } from "./../../constants/fontSizes";
 
 const Item = (props) => {
-  const [context, setContext] = useContext(ThemeContext);
+  const [context] = useContext(ThemeContext);
   let cx = classNames.bind(i);
-  
+
   let className = cx({
-    important: props.importance === "1",
-    most_important: props.importance === "2",
+    important: props.importance === IMPORTANT,
+    most_important: props.importance === MOST_IMPORTANT,
     base: true,
   });
 
@@ -22,11 +23,10 @@ const Item = (props) => {
   });
 
   let themeClassName = cx({
-    small: context === "small",
-    big: context === "big",
+    small: context === SMALL,
+    big: context === BIG,
   });
 
-  
   return (
     <li id={props.id} className={`${className} ${themeClassName}`}>
       <label className={i.item}>

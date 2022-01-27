@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import TodoStore from "./Observable/TodoStore";
 
-import App from "./components/App/App";
+import store from "./../src/Observable/TodoStore";
 import { Provider } from "mobx-react";
+import App from "./components/App/App";
 
 ReactDOM.render(
-  <Provider store={new TodoStore()}>
+  <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById("root")
