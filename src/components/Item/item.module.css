@@ -32,8 +32,7 @@
   user-select: none;
 }
 
-
-.light  {
+.light {
   background-color: #ffffff;
 }
 
@@ -41,12 +40,9 @@
   background-color: #080707;
 }
 
-
 .important {
   background-color: rgb(231, 231, 56, 0.4);
 }
-
-
 
 .most_important {
   background-color: rgba(231, 44, 10, 0.3);
@@ -80,7 +76,6 @@
 
   margin-right: 16px;
 
-  
   border: 2px solid #69b253;
   border-radius: 4px;
 }
@@ -107,7 +102,7 @@
   border-color: #69b253;
 }
 
-.small  {
+.small {
   font-size: 14px;
 }
 

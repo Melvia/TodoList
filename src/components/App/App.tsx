@@ -1,21 +1,22 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import app from "./app.module.css";
-import List from "../List/List";
+import List from "../List/List.tsx";
 
-import Header from "../Header/Header";
+import Header from "../Header/Header.tsx";
 import { ThemeContext } from "../../context/ThemeContext.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "./../../redux/slice";
+import { addItem } from "../../redux/slice";
 
-import { SMALL } from "./../../constants/fontSizes";
+import { SMALL } from "../../constants/fontSizes.ts";
+import {RootState} from './../../redux/store';
 
-const App = () => {
+const App = (): JSX.Element => {
   const [context, setContext] = useState(SMALL);
 
-  const { items, text } = useSelector((state) => state.todo);
+  const { items, text } = useSelector((state:RootState) => state.todo);
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (!text.length) {
       return;

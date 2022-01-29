@@ -1,7 +1,7 @@
-import { React, useContext } from "react";
+import React, { useContext } from "react";
 import a from "./../App/app.module.css";
-import { ThemeContext } from "./../../context/ThemeContext";
-import  {BIG, SMALL} from "./../../constants/fontSizes";
+import { ThemeContext } from "../../context/ThemeContext";
+import  {BIG, SMALL} from "../../constants/fontSizes.ts";
 
 export default function ThemedButton() {
 

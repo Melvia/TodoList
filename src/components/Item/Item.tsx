@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
-import * as i from "./item.module.css";
-import * as a from "./../App/app.module.css";
+import ReactDOM from 'react-dom'
+import i from "./item.module.css";
+import a from "./../App/app.module.css";
 import classNames from "classnames/bind";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useDispatch} from "react-redux";
 
-import {BIG, SMALL} from '../../constants/fontSizes'
-import {IMPORTANT, MOST_IMPORTANT} from '../../constants/typesImportance'
+import {BIG, SMALL} from '../../constants/fontSizes.ts';
+import {IMPORTANT, MOST_IMPORTANT} from '../../constants/typesImportance';
+import {BTN_ADD, BTN_REMOVE, BTN_THEME} from '../../constants/buttonNames.ts';
+import ItemProps from './interface';
 
 import {
   removeItem,
@@ -14,32 +17,34 @@ import {
   changeIsDone,
 } from "../../redux/slice";
 
-const Item = (props) => {
+const Item = (props: ItemProps): JSX.Element => {
+  
   
   const dispatch = useDispatch(); 
 
   const [context] = useContext(ThemeContext);
   let cx = classNames.bind(i);
 
-  const clsName : string = i.class__
-  let className = cx({
-    important: props.importance === "1",
-    most_important: props.importance === "2",
+  
+ 
+  let className:any = cx({
+    important: props.importance === IMPORTANT,
+    most_important: props.importance === MOST_IMPORTANT,
     base: true,
   });
 
-  let spanClassName = cx({
+  let spanClassName:any = cx({
     checked: props.isDone,
     "": !props.isDone,
   });
 
-  let themeClassName = cx({
+  let themeClassName:any = cx({
     small: context === SMALL,
     big: context === BIG,
   });
 
-  return (
-    <li id={props.id} className={`${className} ${themeClassName}`}>
+
+  return (<li id={props.id.toString()} className={`${className} ${themeClassName}`}>
       <label className={i.item}>
         <input
           className={`${i.input} ${themeClassName}`}
@@ -53,7 +58,7 @@ const Item = (props) => {
         <div className={i.info}>
           <select
             className={`${i.importance} ${themeClassName}`}
-            onChange={(e) =>{dispatch(changeImportance({id: props.id, importance: e.target.value}))} }
+            onChange={(e:React.ChangeEvent<HTMLSelectElement>) =>{dispatch(changeImportance({id: props.id, importance: e.target.value}))} }
             value={props.importance}
           >
             <option value="0">обычная</option>
@@ -62,22 +67,14 @@ const Item = (props) => {
           </select>
           <button
             className={a.button}
-            onClick={() => dispatch(removeItem(props.id))}
-          >
-            -
+            onClick={() => dispatch(removeItem(props.id))}>
+            {BTN_REMOVE}
           </button>
         </div>
       </label>
     </li>
   );
-};
-
-Item.propTypes = {
-  id: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  isDone: PropTypes.bool.isRequired,
-  importance: PropTypes.string.isRequired,
-
+  
 };
 
 export default Item;

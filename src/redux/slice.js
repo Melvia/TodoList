@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ALL } from "./../constants/filterTypes.ts";
+import { ALL } from "../constants/filterTypes.ts";
 import { BASE } from "./../constants/typesImportance";
 
 const todoSlice = createSlice({

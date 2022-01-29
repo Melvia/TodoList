@@ -1,12 +1,12 @@
 import React from "react";
-import Item from "../Item/Item";
+import Item from './../Item/Item.tsx';
 import lst from "./list.module.css";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { ALL } from "../../constants/filterTypes.ts";
+import {RootState} from './../../redux/store';
 
-const List = () => {
-  const { items, filterType } = useSelector((state) => state.todo);
+const List = (): JSX.Element => {
+  const { items, filterType } = useSelector((state:RootState) => state.todo);
 
   return (
     <ol className={lst.todolist}>
