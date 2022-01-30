@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {SMALL, BIG} from '../constants/fontSizes'
+
 const { Provider, Consumer } = React.createContext();
 
 class ThemeContextProvider extends Component {

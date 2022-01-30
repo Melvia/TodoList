@@ -2,6 +2,13 @@ import React from "react";
 import app from "./app.module.css";
 import List from "../List/List";
 import ThemedButton from "./../ThemedButton/ThemedButton";
+import { ALL, IS_DONE, IS_NOT_DONE } from "./../../constants/filterTypes";
+import {
+  BASE,
+  IMPORTANT,
+  MOST_IMPORTANT,
+} from "../../constants/typeImportance";
+import { TASK_IS_NOT_DONE } from "./../../constants/isDoneInformation";
 
 class App extends React.Component {
   constructor(props) {
@@ -9,9 +16,9 @@ class App extends React.Component {
     this.state = {
       items: [],
       text: "",
-      isDone: false,
-      importance: "0",
-      filterType: 2,
+      isDone: TASK_IS_NOT_DONE,
+      importance: BASE,
+      filterType: ALL,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,9 +50,9 @@ class App extends React.Component {
     const newItem = {
       text: this.state.text,
       id: Date.now(),
-      isDone: false,
-      importance: 0,
-      filterType: 2,
+      isDone: TASK_IS_NOT_DONE,
+      importance: BASE,
+      filterType: ALL,
     };
 
     this.setState((state) => ({
@@ -100,9 +107,9 @@ class App extends React.Component {
             defaultValue={this.state.filterType}
             onChange={this.handleFilter}
           >
-            <option value="2">все задачи</option>
-            <option value="1">выполненные задачи</option>
-            <option value="0">текущие задачи</option>
+            <option value={ALL}>все задачи</option>
+            <option value={IS_DONE}>выполненные задачи</option>
+            <option value={IS_NOT_DONE}>текущие задачи</option>
           </select>
           <ThemedButton />
         </div>
