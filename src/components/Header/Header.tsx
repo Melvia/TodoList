@@ -2,14 +2,15 @@ import React from "react";
 import header from "./header.module.css";
 import app from "./../App/app.module.css";
 
-import ThemedButton from "../ThemedButton/ThemedButton";
+import ThemedButton from "../ThemedButton/ThemedButton.tsx";
 
 import { useDispatch, useSelector } from "react-redux";
-import { changeText, filter } from "../../redux/slice";
+import { changeText, filter } from "../../redux/slice.ts";
 import {IHeaderProps} from './interface.ts'
-import {RootState} from './../../redux/store';
+import {RootState} from './../../redux/store.ts';
 
 import { ALL, IS_DONE, IS_NOT_DONE } from "../../constants/filterTypes.ts";
+import {BTN_ADD, BTN_THEME} from '../../constants/buttonNames.ts';
 
 const Header = (props:IHeaderProps) => {
   const { text, filterType } = useSelector((state:RootState) => state.todo);
@@ -44,7 +45,7 @@ const Header = (props:IHeaderProps) => {
           value={text}
         />
 
-        <button className={app.button}>+</button>
+        <button className={app.button}>{BTN_ADD}</button>
       </form>
     </>
   );

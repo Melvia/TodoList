@@ -7,7 +7,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { useDispatch} from "react-redux";
 
 import {BIG, SMALL} from '../../constants/fontSizes.ts';
-import {IMPORTANT, MOST_IMPORTANT} from '../../constants/typesImportance';
+import {IMPORTANT, MOST_IMPORTANT} from '../../constants/typesImportance.ts';
 import {BTN_ADD, BTN_REMOVE, BTN_THEME} from '../../constants/buttonNames.ts';
 import ItemProps from './interface';
 
@@ -15,7 +15,7 @@ import {
   removeItem,
   changeImportance,
   changeIsDone,
-} from "../../redux/slice";
+} from "../../redux/slice.ts";
 
 const Item = (props: ItemProps): JSX.Element => {
   
@@ -24,9 +24,7 @@ const Item = (props: ItemProps): JSX.Element => {
 
   const [context] = useContext(ThemeContext);
   let cx = classNames.bind(i);
-
-  
- 
+   
   let className:any = cx({
     important: props.importance === IMPORTANT,
     most_important: props.importance === MOST_IMPORTANT,

@@ -5,10 +5,18 @@ import List from "../List/List.tsx";
 import Header from "../Header/Header.tsx";
 import { ThemeContext } from "../../context/ThemeContext.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../../redux/slice";
+import { addItem, changeText } from "../../redux/slice.ts";
 
 import { SMALL } from "../../constants/fontSizes.ts";
-import {RootState} from './../../redux/store';
+import TaskStates from "./../../constants/taskDoneStates.ts";
+import {BASE} from './../../constants/typesImportance.ts';
+
+import {RootState} from './../../redux/store.ts';
+import {IItem} from './interface.ts'
+
+import store from './../../redux/store';
+
+const {TASK_NOT_DONE} = TaskStates;
 
 const App = (): JSX.Element => {
   const [context, setContext] = useState(SMALL);
@@ -29,6 +37,7 @@ const App = (): JSX.Element => {
     }
 
     dispatch(addItem(text));
+    dispatch(changeText(""));
   };
 
   return (
