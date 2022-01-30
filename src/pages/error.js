@@ -7,9 +7,10 @@ const { ABOUT, APP } = SiteRoutes;
 const Error = () => {
   return (
     <div className={app.container}>
-      <h1>Страницы по этому адресу не существует</h1>
-      <Link to={ABOUT}>Перейти на страницу информации</Link>
-      <Link to={APP}>Перейти на страницу списк дел</Link>
+      <h1>Несуществующая страница</h1>
+      <p>Страницы по этому адресу не существует</p>
+      <p> Перейти на страницу <Link to={ABOUT}> информации</Link> </p>      
+      <p>Перейти на страницу <Link to={APP}>списк дел</Link></p>
     </div>
   );
 };
