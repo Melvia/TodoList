@@ -4,7 +4,6 @@ import List from "../List/List";
 import withLoader from "../../HOC/LoadWrapper/WithLoader";
 import Header from "../Header/Header";
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -14,8 +13,8 @@ class App extends React.Component {
       isDone: false,
       importance: "0",
       filterType: 2,
-      loading: false,
-      timer: null
+      loading: true,
+      timer: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -93,32 +92,32 @@ class App extends React.Component {
     });
   }
 
-  
   componentDidMount() {
-    this.setState({timer: setTimeout(() => {
-      this.setState({ loading: true });
-    }, 5000)}) ;
+    this.setState({
+      timer: setTimeout(() => {
+        this.setState({ loading: false });
+      }, 5000),
+    });
   }
 
   componentWillUnmount() {
-    this.setState({timer:clearTimeout(this.state.timer)} ) ;
+    this.setState({ timer: clearTimeout(this.state.timer) });
   }
 
   render() {
-
     const HeaderWithLoader = withLoader(Header, this.state.loading);
 
     return (
       <>
-      <div className={app.container}>
-        <HeaderWithLoader
-          filterType={this.state.filterType}
-          handleFilter={this.handleFilter}
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          text={this.state.text}
-        />
-        
+        <div className={app.container}>
+          <HeaderWithLoader
+            filterType={this.state.filterType}
+            handleFilter={this.handleFilter}
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            text={this.state.text}
+          />
+
           <List
             items={this.state.items}
             handleRemoveTodo={this.handleRemoveTodo}
@@ -132,8 +131,4 @@ class App extends React.Component {
   }
 }
 
-
-
 export default App;
-
-

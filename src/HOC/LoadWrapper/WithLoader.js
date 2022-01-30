@@ -6,7 +6,7 @@ import Loader from "./../../components/Loader/Loader";
 const withLoader = (WrappedComponent, loading) => {
   class HOC extends React.Component {
     render() {
-      return loading ? <WrappedComponent {...this.props}  /> : <Loader />;
+      return loading ? <Loader /> : <WrappedComponent {...this.props}  /> ;
     }
   }    
   return HOC;
