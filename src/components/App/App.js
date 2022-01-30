@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import app from "./app.module.css";
 import List from "../List/List";
 import withLoader from "../../HOC/LoadWrapper/WithLoader";
@@ -42,24 +42,23 @@ const App = () => {
     setText("");
   };
 
-  const handleRemoveTodo = (id) => {
+  const handleRemoveTodo = useCallback((id) => {
     setItems(items.filter((el) => el.id !== id));
-  };
+  }, [items]);
 
-  const handleChangeImportance = (id, importance) => {
+  const handleChangeImportance = useCallback((id, importance) => {
     const newArray = items.map((element) =>
       element.id === id ? { ...element, importance: importance } : element
     );
-    setItems(newArray);
-  };
+    setItems(newArray)}, [items]);
 
-  const hanldeChangeIsDone = (id) => {
+  const hanldeChangeIsDone = useCallback((id) => {
     const newArray = items.map((element) =>
       element.id === id ? { ...element, isDone: !element.isDone } : element
     );
 
     setItems(newArray);
-  };
+  }, [items]);
 
   const handleFilter = (e) => { setFilterType(parseInt(e.target.value));};
 
