@@ -1,6 +1,6 @@
 import React from "react";
-import header from "./header.module.css";
-import app from "./../App/app.module.css";
+import header from "./header.module.scss";
+import app from "./../App/app.module.scss";
 
 import ThemedButton from "../ThemedButton/ThemedButton.tsx";
 
@@ -10,7 +10,7 @@ import {IHeaderProps} from './interface.ts'
 import {RootState} from './../../redux/store.ts';
 
 import { ALL, IS_DONE, IS_NOT_DONE } from "../../constants/filterTypes.ts";
-import {BTN_ADD, BTN_THEME} from '../../constants/buttonNames.ts';
+import {BTN_ADD} from '../../constants/buttonNames.ts';
 
 const Header = (props:IHeaderProps) => {
   const { text, filterType } = useSelector((state:RootState) => state.todo);
@@ -21,7 +21,7 @@ const Header = (props:IHeaderProps) => {
         <h1>Список дел</h1>
 
         <select
-          className={header.select}
+          className={`${app.select} ${header.filter}`}
           defaultValue={filterType}
           onChange={(e:React.ChangeEvent<HTMLSelectElement>) => {
             dispatch(filter(e.target.value));

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import app from "./app.module.css";
+import app from "./app.module.scss";
 import List from "../List/List.tsx";
 
 import Header from "../Header/Header.tsx";
@@ -8,15 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem, changeText } from "../../redux/slice.ts";
 
 import { SMALL } from "../../constants/fontSizes.ts";
-import TaskStates from "./../../constants/taskDoneStates.ts";
-import {BASE} from './../../constants/typesImportance.ts';
-
 import {RootState} from './../../redux/store.ts';
-import {IItem} from './interface.ts'
-
-import store from './../../redux/store';
-
-const {TASK_NOT_DONE} = TaskStates;
 
 const App = (): JSX.Element => {
   const [context, setContext] = useState(SMALL);

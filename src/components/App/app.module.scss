@@ -1,0 +1,61 @@
+@import "./../../constants/styles.scss";
+
+.container {
+  width: 60vh;
+  margin: 20px auto;
+  background-color: $container-color;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: $container-shadow;
+}
+
+
+.button {
+  flex-shrink: 0;
+  padding: 12px;
+  font: inherit;  
+  color: $container-color;
+
+  background-color: $button-color;
+  border: none;
+  border-radius: $border-radius;
+
+  user-select: none;
+  touch-action: manipulation;
+    &:hover {
+      @extend %darken;  
+    }  
+    &:focus {
+      @extend %darken;  
+    }  
+    &active {
+      background-color:  darken($button-color, 20%);
+    }
+}
+
+
+
+.select {
+  font: inherit;
+  display: block;   
+  color: lighten($font-color, 10%);   
+  box-sizing: border-box; 
+  border:$border;
+  box-shadow: $item-shadow;
+  border-radius: $border-radius;
+  appearance: none;
+  background-color: $container-color;
+  font-size: $font-size;
+  &::-ms-expand { 
+    display: none; 
+    } 
+  &:hover { 
+    border-color:  $button-color;
+    } 
+
+  &:focus { border-color: darken($button-color, 10%); 
+    box-shadow: $item-shadow; 
+    outline: none; 
+    } 
+  &option {font-weight:normal;}    
+}

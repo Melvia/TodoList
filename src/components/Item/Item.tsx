@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
-import ReactDOM from 'react-dom'
-import i from "./item.module.css";
-import a from "./../App/app.module.css";
+import i from "./item.module.scss";
+import a from "./../App/app.module.scss";
 import classNames from "classnames/bind";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useDispatch} from "react-redux";
 
 import {BIG, SMALL} from '../../constants/fontSizes.ts';
 import {IMPORTANT, MOST_IMPORTANT} from '../../constants/typesImportance.ts';
-import {BTN_ADD, BTN_REMOVE, BTN_THEME} from '../../constants/buttonNames.ts';
+import {BTN_REMOVE} from '../../constants/buttonNames.ts';
 import ItemProps from './interface';
 
 import {
@@ -55,7 +54,7 @@ const Item = (props: ItemProps): JSX.Element => {
 
         <div className={i.info}>
           <select
-            className={`${i.importance} ${themeClassName}`}
+            className={`${a.select} ${i.importance} ${themeClassName}`}
             onChange={(e:React.ChangeEvent<HTMLSelectElement>) =>{dispatch(changeImportance({id: props.id, importance: e.target.value}))} }
             value={props.importance}
           >

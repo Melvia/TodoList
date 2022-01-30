@@ -1,21 +1,17 @@
+@import "./constants/styles.scss";
+
 body {
   margin: 0px;
-
-  font-size: 18px;
+  font-size: $font-size;
+  color:$font-color;
   line-height: normal;
-  font-family: "Muller", sans-serif;
+  font-family: $font-family;
   background-size: cover;
   background-position: center;
   background-image: url('https://source.unsplash.com/1600x900/?background'); 
   background-repeat: no-repeat;
   height: 100vh;
-
 }
 
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
 
 

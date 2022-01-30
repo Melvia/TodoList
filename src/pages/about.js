@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SiteRoutes from "./../constants/url.ts";
-import app from "./../components/App/app.module.css";
+import app from "./../components/App/app.module.scss";
 
 const { APP } = SiteRoutes;
 const About = () => {

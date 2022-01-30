@@ -1,0 +1,25 @@
+$button-color: #69b253;
+$container-color: #ffffff;
+$font-size: 16px;
+$font-color: #444444;
+$font-family: "Muller", sans-serif;
+
+
+
+$container-shadow:0 2px 5px rgba(0, 0, 0, 0.5);
+$item-shadow:0 2px 5px rgba(0, 0, 0, 0.15);
+$border: 1px solid #a1b5c4;
+$border-green:2px solid $button-color;
+$border-radius: 4px;
+
+%darken {
+    background-color: darken($button-color, 10%);
+    outline: none;
+  }  
+
+%shadow-hover {    
+    box-shadow: 0 0 6px darken($button-color, 10%);
+}
+
+
+
