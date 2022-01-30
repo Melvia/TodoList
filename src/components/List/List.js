@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
-import Item from "../Item/Item";
-import lst from "./list.module.css";
-import PropTypes from "prop-types";
+import React, { useState, useContext } from 'react';
+import Item from '../Item/Item';
+import lst from './list.module.css';
+import PropTypes from 'prop-types';
 
 const List = (props) => {
   const removeItem = (id) => {

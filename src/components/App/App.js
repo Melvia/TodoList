@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import app from "./app.module.css";
-import List from "../List/List";
-import withLoader from "../../HOC/LoadWrapper/WithLoader";
-import Header from "../Header/Header";
-import { ThemeContext } from "../../context/ThemeContext.js";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import app from './app.module.css';
+import List from '../List/List';
+import withLoader from '../../HOC/LoadWrapper/WithLoader';
+import Header from '../Header/Header';
+import { ThemeContext } from '../../context/ThemeContext.js';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 const App = () => {
   const [items, setItems] = useState([]);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [isDone, setIsDone] = useState(false);
-  const [importance, setImportance] = useState("0");
+  const [importance, setImportance] = useState('0');
   const [isLoading, setIsLoading] = useState(false);
   const [filterType, setFilterType] = useState(2);
 
-  const [context, setContext] = useState("small");
+  const [context, setContext] = useState('small');
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -28,7 +28,7 @@ const App = () => {
 
     for (let item of items) {
       if (item.text.toLowerCase() === text.toLowerCase()) {
-        return alert("такой пункт уже есть");
+        return alert('такой пункт уже есть');
       }
     }
 
@@ -36,11 +36,11 @@ const App = () => {
       text: text,
       id: Date.now(),
       isDone: false,
-      importance: "0",
+      importance: '0',
       filterType: 2,
     };
     setItems([...items, newItem]);
-    setText("");
+    setText('');
   };
 
   const handleRemoveTodo = (id) => {

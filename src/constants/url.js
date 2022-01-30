@@ -1,4 +1,7 @@
-const APP = "app";
-const ABOUT = "/";
+ const SiteRoutes = {
+  APP: 'app',
+  ABOUT: '/',
+  ERROR: '*',
+};
 
-export { APP, ABOUT };
+export default SiteRoutes;

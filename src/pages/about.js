@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { APP } from "./../constants/url";
+import SiteRoutes from "./../constants/url";
 import app from './../components/App/app.module.css'
 
+const {APP} = SiteRoutes;
 const About = () => {
   return (
     <div className={app.container}>
