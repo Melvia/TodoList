@@ -1,11 +1,11 @@
-import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ALL } from "../constants/filterTypes.ts";
 import { BASE } from "./../constants/typesImportance.ts";
 import TaskStates from '../constants/taskDoneStates.ts';
 import {IItem, IApp} from './interface.ts';
 
 
-const {TASK_DONE, TASK_NOT_DONE} = TaskStates;
+const {TASK_NOT_DONE} = TaskStates;
 
 
 const todoSlice = createSlice({

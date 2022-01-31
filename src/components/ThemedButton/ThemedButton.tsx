@@ -3,7 +3,7 @@ import a from "./../App/app.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
 import  {BIG, SMALL} from "../../constants/fontSizes.ts";
 
-export default function ThemedButton() {
+const ThemedButton = (): JSX.Element  => {
 
   const [context, setContext] = useContext(ThemeContext);
   return (
@@ -17,3 +17,5 @@ export default function ThemedButton() {
     </div>
   );
 }
+
+export default ThemedButton;

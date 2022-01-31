@@ -12,7 +12,7 @@ import {RootState} from './../../redux/store.ts';
 import { ALL, IS_DONE, IS_NOT_DONE } from "../../constants/filterTypes.ts";
 import {BTN_ADD} from '../../constants/buttonNames.ts';
 
-const Header = (props:IHeaderProps) => {
+const Header = (props:IHeaderProps): JSX.Element  => {
   const { text, filterType } = useSelector((state:RootState) => state.todo);
   const dispatch = useDispatch();
   return (
