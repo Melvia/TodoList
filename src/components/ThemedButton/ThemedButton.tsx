@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import a from "./../../pages/App/app.module.scss";
-import { ThemeContext } from "../../context/ThemeContext";
+import { ThemeContext } from "../../context/ThemeContext.ts";
 import  {BIG, SMALL} from "../../constants/fontSizes.ts";
 
 const ThemedButton = (): JSX.Element  => {
-
-  const [context, setContext] = useContext(ThemeContext);
+  const [context, setContext] = useContext<ThemeContext>(ThemeContext);
   return (
     <div>
       <button

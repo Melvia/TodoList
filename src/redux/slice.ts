@@ -18,20 +18,20 @@ const todoSlice = createSlice({
         
       },
       prepare: (text: string) => {
-          const id = Date.now()          
-          const isDone = TASK_NOT_DONE
-          const importance = BASE
-          return {payload: {id, isDone, importance, text}}
+          const id = Date.now();  
+          const isDone = TASK_NOT_DONE;
+          const importance = BASE;
+          return {payload: {id, isDone, importance, text}};
         }      
     },
-    removeItem: (state, action) => {
+    removeItem: (state, action:PayloadAction<number>) => {
       state.items = state.items.filter((el:IItem) => el.id !== action.payload);
     },
     changeText: (state, action) => {
       state.text = action.payload;
     },
 
-    changeImportance: (state, action) => {
+    changeImportance: (state, action:PayloadAction<IItem>) => {
       state.items = state.items.map((element:IItem) =>
         element.id === action.payload.id
           ? { ...element, importance: action.payload.importance }
@@ -39,7 +39,7 @@ const todoSlice = createSlice({
       );
     },
 
-    changeIsDone: (state, action) => {
+    changeIsDone: (state, action:PayloadAction<number>) => {
       state.items = state.items.map((element:IItem) =>
         element.id === action.payload
           ? { ...element, isDone: !element.isDone }

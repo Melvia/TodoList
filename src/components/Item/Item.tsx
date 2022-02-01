@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import i from "./item.module.scss";
 import a from "./../../pages/App/app.module.scss";
 import classNames from "classnames/bind";
-import { ThemeContext } from "../../context/ThemeContext";
+import { ThemeContext } from "../../context/ThemeContext.ts";
 import { useDispatch} from "react-redux";
 
 import {BIG, SMALL} from '../../constants/fontSizes.ts';

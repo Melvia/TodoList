@@ -3,7 +3,7 @@ import app from "./app.module.scss";
 import List from "../../components/List/List.tsx";
 
 import Header from "../../components/Header/Header.tsx";
-import { ThemeContext } from "../../context/ThemeContext.js";
+import { ThemeContext } from "../../context/ThemeContext.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, changeText } from "../../redux/slice.ts";
 
@@ -11,7 +11,7 @@ import { SMALL } from "../../constants/fontSizes.ts";
 import {RootState} from './../../redux/store.ts';
 
 const App = (): JSX.Element => {
-  const [context, setContext] = useState(SMALL);
+  const [context, setContext] = useState<typeof SMALL>(SMALL);
 
   const { items, text } = useSelector((state:RootState) => state.todo);
   const dispatch = useDispatch();
