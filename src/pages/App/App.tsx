@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem, changeText } from "../../redux/slice.ts";
 
 import { SMALL } from "../../constants/fontSizes.ts";
-import {RootState} from './../../redux/store.ts';
+import {RootState, AppDispatch} from './../../redux/store.ts';
 
 const App = (): JSX.Element => {
   const [context, setContext] = useState<typeof SMALL>(SMALL);
 
   const { items, text } = useSelector((state:RootState) => state.todo);
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
 
   const handleSubmit = (e:React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
