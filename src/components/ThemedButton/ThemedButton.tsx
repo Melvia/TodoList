@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import a from "./../App/app.module.scss";
+import a from "./../../pages/App/app.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
 import  {BIG, SMALL} from "../../constants/fontSizes.ts";
 

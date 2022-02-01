@@ -6,11 +6,11 @@ import {IItem, IApp} from './interface.ts';
 
 
 const {TASK_NOT_DONE} = TaskStates;
-
+const initialState: IApp = {items:[], text:"", isDone:TASK_NOT_DONE, importance: BASE, filterType: ALL };
 
 const todoSlice = createSlice({
   name: "todo",
-  initialState: {items:[], text:"", isDone:TASK_NOT_DONE, importance: BASE, filterType: ALL } as IApp,
+  initialState: initialState,
   reducers: {
     addItem:  {
       reducer:(state, action:PayloadAction<IItem>) => {

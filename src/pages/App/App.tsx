@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import app from "./app.module.scss";
-import List from "../List/List.tsx";
+import List from "../../components/List/List.tsx";
 
-import Header from "../Header/Header.tsx";
+import Header from "../../components/Header/Header.tsx";
 import { ThemeContext } from "../../context/ThemeContext.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, changeText } from "../../redux/slice.ts";

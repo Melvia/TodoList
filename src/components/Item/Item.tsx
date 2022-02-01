@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import i from "./item.module.scss";
-import a from "./../App/app.module.scss";
+import a from "./../../pages/App/app.module.scss";
 import classNames from "classnames/bind";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useDispatch} from "react-redux";

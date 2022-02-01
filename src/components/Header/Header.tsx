@@ -1,6 +1,6 @@
 import React from "react";
 import header from "./header.module.scss";
-import app from "./../App/app.module.scss";
+import app from "./../../pages/App/app.module.scss";
 
 import ThemedButton from "../ThemedButton/ThemedButton.tsx";
 

@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
 import { Provider } from "react-redux";
 import store from "./redux/store.ts";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import App from "./components/App/App.tsx";
-import About from "./pages/about.tsx";
-import NotFound from "./pages/not_found.tsx";
+import App from "./pages/App/App.tsx";
+import About from "./pages/About/about.tsx";
+import NotFound from "./pages/NotFound/not_found.tsx";
 import SiteRoutes from "./constants/url.ts";
+import "./index.scss";
 
 const { ABOUT, NOT_FOUND, APP } = SiteRoutes;
 
