@@ -55,13 +55,11 @@
     border: $border-green;
     border-radius: $border-radius;
   }
-
     &:checked + span::before {
       background-color: $button-color;
       background-repeat: no-repeat;
       background-position: center;
     }
-
     &:not(:checked){
       &:hover + span::before{
         background-color: lighten($button-color, 40%);    
@@ -70,7 +68,6 @@
         background-color: lighten($button-color, 40%);
       }
     }
-
 }
 
 .importance  { 

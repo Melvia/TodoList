@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SiteRoutes from "./../constants/url.ts";
-import app from "./../components/App/app.module.scss";
+import SiteRoutes from "./../../constants/url.ts";
+import app from "./../Todo/todo.module.scss";
 
 const { ABOUT, APP } = SiteRoutes;
-const Error = () => {
+const NotFound = () => {
   return (
     <div className={app.container}>
       <h1>Несуществующая страница</h1>
@@ -19,4 +19,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default NotFound;

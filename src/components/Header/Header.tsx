@@ -1,6 +1,6 @@
 import React from "react";
 import header from "./header.module.scss";
-import app from "./../App/app.module.scss";
+import app from "./../../pages/Todo/todo.module.scss";
 
 import ThemedButton from "../ThemedButton/ThemedButton.tsx";
 
@@ -12,7 +12,7 @@ import {RootState} from './../../redux/store.ts';
 import { ALL, IS_DONE, IS_NOT_DONE } from "../../constants/filterTypes.ts";
 import {BTN_ADD} from '../../constants/buttonNames.ts';
 
-const Header = (props:IHeaderProps) => {
+const Header = (props:IHeaderProps): JSX.Element  => {
   const { text, filterType } = useSelector((state:RootState) => state.todo);
   const dispatch = useDispatch();
   return (

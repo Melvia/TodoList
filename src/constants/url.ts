@@ -1,7 +1,7 @@
 const SiteRoutes = {
     APP: "app",
     ABOUT: "/",
-    ERROR: "*",
+    NOT_FOUND: "*",
   };
 
   export default SiteRoutes;

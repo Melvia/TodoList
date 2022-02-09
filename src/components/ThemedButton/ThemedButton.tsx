@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
-import a from "./../App/app.module.scss";
-import { ThemeContext } from "../../context/ThemeContext";
+import a from "./../../pages/Todo/todo.module.scss";
+import { ThemeContext } from "../../context/ThemeContext.ts";
 import  {BIG, SMALL} from "../../constants/fontSizes.ts";
 
-export default function ThemedButton() {
-
-  const [context, setContext] = useContext(ThemeContext);
+const ThemedButton = (): JSX.Element  => {
+  const [context, setContext] = useContext<ThemeContext>(ThemeContext);
   return (
     <div>
       <button
@@ -17,3 +16,5 @@ export default function ThemedButton() {
     </div>
   );
 }
+
+export default ThemedButton;
