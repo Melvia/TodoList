@@ -1,16 +1,19 @@
 import React from "react";
-import header from "./header.module.css";
-import app from "./../App/app.module.css";
+import header from "./header.module.scss";
+import app from "./../../pages/Todo/todo.module.scss";
 
-import ThemedButton from "./../ThemedButton/ThemedButton";
+import ThemedButton from "../ThemedButton/ThemedButton.tsx";
 
 import { useDispatch, useSelector } from "react-redux";
-import { changeText, filter } from "./../../redux/slice";
+import { changeText, filter } from "../../redux/slice.ts";
+import {IHeaderProps} from './interface.ts'
+import {RootState} from './../../redux/store.ts';
 
-import { ALL, IS_DONE, IS_NOT_DONE } from "./../../constants/filterTypes";
+import { ALL, IS_DONE, IS_NOT_DONE } from "../../constants/filterTypes.ts";
+import {BTN_ADD} from '../../constants/buttonNames.ts';
 
-const Header = (props) => {
-  const { text, filterType } = useSelector((state) => state.todo);
+const Header = (props:IHeaderProps): JSX.Element  => {
+  const { text, filterType } = useSelector((state:RootState) => state.todo);
   const dispatch = useDispatch();
   return (
     <>
@@ -18,9 +21,9 @@ const Header = (props) => {
         <h1>Список дел</h1>
 
         <select
-          className={header.select}
+          className={`${app.select} ${header.filter}`}
           defaultValue={filterType}
-          onChange={(e) => {
+          onChange={(e:React.ChangeEvent<HTMLSelectElement>) => {
             dispatch(filter(e.target.value));
           }}
         >
@@ -38,11 +41,11 @@ const Header = (props) => {
           aria-label="Описание задачи"
           placeholder="Например, прочитать про redux"
           id="new-todo"
-          onChange={(e) => dispatch(changeText(e.target.value))}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>) => dispatch(changeText(e.target.value))}
           value={text}
         />
 
-        <button className={app.button}>+</button>
+        <button className={app.button}>{BTN_ADD}</button>
       </form>
     </>
   );
